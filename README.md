@@ -1,4 +1,4 @@
-# Phase 4 Full-Stack Application Project Template
+# Food Delivery App
 
 ## Project Description
 "Food Delivery" app that hosts multiple restaurants.
