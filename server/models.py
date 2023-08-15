@@ -11,8 +11,13 @@ class User(db.Model, SerializerMixin):
     name = db.Column(db.String)
     profile_pic = db.Column(db.String)
 
+    reviews = db.relationship('Review', cascade = 'all, delete', backref = 'user')
+    login = db.relationship('Login', cascade = 'all, delete', backref = 'user')
+
+    serialize_rules = ('-reviews.user', '-logins.user')
+
     def __repr__(self):
-        return f'<User>'
+        return f'<User name: {self.name} >'
 
 
 class Login(db.Model, SerializerMixin):
@@ -26,8 +31,10 @@ class Login(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
 
+    serialize_rules = ('-user.logins', '-restaurant.logins')
+
     def __repr__(self):
-        return f'<Login>'
+        return f'<Login username: {self.username}, User Type: {self.user_type} >'
 
 
 class Review(db.Model, SerializerMixin):
@@ -40,8 +47,10 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
 
+    serialize_rules = ('-user.reviews', '-restaurant.reviews')
+
     def __repr__(self):
-        return f'<Review>'
+        return f'<Review review type: {self.review_type}, content: {self.content} >'
 
 
 class Restaurant(db.Model, SerializerMixin):
@@ -52,5 +61,10 @@ class Restaurant(db.Model, SerializerMixin):
     image = db.Column(db.String)
     owner = db.Column(db.String)
 
+    reviews = db.relationship('Review', cascade = 'all, delete', backref = 'restaurant')
+    login = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
+
+    serialize_rules = ('-reviews.restaurant', '-logins.restaurant')
+
     def __repr__(self):
-        return f'<Restaurant>'
+        return f'<Restaurant name: {self.name}, owner: {self.owner} >'
