@@ -25,3 +25,12 @@ Stretch Goals:
 * View friends' past orders and reviews
 
 ## Wireframes
+![Login Page]()
+![Register Account Page]()
+![Home Page]()
+![Restaurant Page]()
+![Account Page]()
+![Checkout Page]()
+
+## DB Diagram
+![DB Diagram](/images/db_diagram.png)
