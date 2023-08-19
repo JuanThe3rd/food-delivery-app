@@ -12,7 +12,7 @@ class User(db.Model, SerializerMixin):
     profile_pic = db.Column(db.String)
 
     reviews = db.relationship('Review', cascade = 'all, delete', backref = 'user')
-    login = db.relationship('Login', cascade = 'all, delete', backref = 'user')
+    logins = db.relationship('Login', cascade = 'all, delete', backref = 'user')
 
     serialize_rules = ('-reviews.user', '-logins.user')
 
@@ -62,7 +62,7 @@ class Restaurant(db.Model, SerializerMixin):
     owner = db.Column(db.String)
 
     reviews = db.relationship('Review', cascade = 'all, delete', backref = 'restaurant')
-    login = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
+    logins = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
 
     serialize_rules = ('-reviews.restaurant', '-logins.restaurant')
 
