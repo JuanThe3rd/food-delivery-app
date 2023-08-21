@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Register() {
+    const history = useHistory();
+
     const [accountType, setAccountType] = useState();
     const [accountData, setAccountData] = useState({});
-    const [newAccount, setNewAccount] = useState();
+    const [newAccountID, setNewAccountID] = useState();
     const [msg, setMsg] = useState();
 
     return (
@@ -71,7 +74,7 @@ function Register() {
                 })
             })
                 .then(res => res.json())
-                .then(setNewAccount)
+                .then(account => setNewAccountID(account.id))
                 .catch(setMsg)
 
             fetch('/logins', {
@@ -81,12 +84,17 @@ function Register() {
                     username: accountData.username,
                     password: accountData.password,
                     user_type: 'user',
-                    user_id: newAccount.id,
+                    user_id: newAccountID,
                     restaurant_id: null
                 })
             })
                 .then(res => res.json())
-                .then(newLogin => setMsg('Account Successfully Created!'))
+                .then(newLogin => {
+                    setMsg('Account Successfully Created! Redirecting...');
+                    setTimeout(() => {
+                        history.push('/home');
+                    }, 3000)
+                })
                 .catch(setMsg)
 
         } else if (accountType ==='restaurant'){
@@ -100,9 +108,9 @@ function Register() {
                 })
             })
                 .then(res => res.json())
-                .then(setNewAccount)
+                .then(account => setNewAccountID(account.id))
                 .catch(setMsg)
-
+            
             fetch('/logins', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -110,12 +118,17 @@ function Register() {
                     username: accountData.username,
                     password: accountData.password,
                     user_type: 'restaurant',
-                    user_id: null,
-                    restaurant_id: newAccount.id
+                    restaurant_id: newAccountID,
+                    user_id: null
                 })
             })
                 .then(res => res.json())
-                .then(newLogin => setMsg('Account Successfully Created!'))
+                .then(newLogin => {
+                    setMsg('Account Successfully Created!');
+                    setTimeout(() => {
+                        history.push('/home');
+                    }, 3000)
+                })
         }
     }
 }
