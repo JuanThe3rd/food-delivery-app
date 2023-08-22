@@ -49,15 +49,20 @@ function Login() {
     function handleSubmit(e){
         e.preventDefault();
         let flag = 0;
+        let login = null;
 
         for (let i = 0; i < logins.length; i++){
             if (logins[i].username === loginData.username && logins[i].password === loginData.password){
                 flag = 1;
+                login = logins[i];
             };
         };
 
         if (flag === 1){
-            history.push('/home');
+            history.push({
+                pathname: '/home',
+                state: login
+            });
         } else {
             setErrorMsg('Invalid Login, Please Try Again')
         };
