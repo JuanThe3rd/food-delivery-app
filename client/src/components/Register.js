@@ -75,7 +75,9 @@ function Register() {
             })
                 .then(res => res.json())
                 .then(account => setNewAccountID(account.id))
-                .catch(setMsg)
+                .catch(error => {
+                    setMsg('Please follow instructions for creating an account');
+                })
 
             fetch('/logins', {
                 method: 'POST',
@@ -92,10 +94,12 @@ function Register() {
                 .then(newLogin => {
                     setMsg('Account Successfully Created! Redirecting...');
                     setTimeout(() => {
-                        history.push('/home');
+                        history.push('/');
                     }, 3000)
                 })
-                .catch(setMsg)
+                .catch(error => {
+                    setMsg('Please follow instructions for creating an account');
+                })
 
         } else if (accountType ==='restaurant'){
             fetch('/restaurants', {
@@ -109,7 +113,9 @@ function Register() {
             })
                 .then(res => res.json())
                 .then(account => setNewAccountID(account.id))
-                .catch(setMsg)
+                .catch(error => {
+                    setMsg('Please follow instructions for creating an account');
+                })
             
             fetch('/logins', {
                 method: 'POST',
@@ -124,10 +130,13 @@ function Register() {
             })
                 .then(res => res.json())
                 .then(newLogin => {
-                    setMsg('Account Successfully Created!');
+                    setMsg('Account Successfully Created! Redirecting...');
                     setTimeout(() => {
-                        history.push('/home');
+                        history.push('/');
                     }, 3000)
+                })
+                .catch(error => {
+                    setMsg('Please follow instructions for creating an account');
                 })
         }
     }
