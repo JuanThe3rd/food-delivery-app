@@ -5,3 +5,25 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.restaurant-card-img {
+  width: auto;
+  height: 300px;
+  justify-content: center;
+  opacity: 60%;
+}
+
+.restaurant-card {
+  border: #282c34 1px solid;
+  width: 60%;
+  margin-left: 20%;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.home-title {
+  text-align: center;
+}
+
+.nav-link {
+  color: blue
+}
