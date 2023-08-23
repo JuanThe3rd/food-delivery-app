@@ -25,5 +25,22 @@
 }
 
 .nav-link {
-  color: blue
+  color: blue;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  height: 2rem;
+}
+
+.nav-container {
+  background-color: red;
+  width: 120%;
+  margin-left: -1rem;
+  margin-top: -0.5rem;
+  height: 4rem;
+}
+
+.account-img {
+  height: 300px;
+  width: auto;
 }

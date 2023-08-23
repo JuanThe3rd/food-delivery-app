@@ -11,17 +11,7 @@ function Login() {
     useEffect(() => {
         fetch('/logins')
             .then(res => res.json())
-            .then(data => {
-                const user_logins = [];
-
-                for(let i = 0; i < data.length; i++){
-                    if (data[i].user_type === 'user'){
-                        user_logins.push(data[i])
-                    };
-                };
-
-                setLogins(user_logins)
-            });
+            .then(setLogins);
     }, []);
 
     return (

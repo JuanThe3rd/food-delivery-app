@@ -5,7 +5,7 @@ function Navbar({ user_login }){
     const history = useHistory();
 
     return (
-        <div>
+        <div className='nav-container' >
             <button className='nav-link' onClick={(e) => handleClick(e)} name='home' >Home</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Account</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='checkout' >Cart</button>

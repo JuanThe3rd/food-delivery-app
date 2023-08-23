@@ -18,11 +18,21 @@ function Home() {
     return (
         <div>
             <Navbar user_login={user_login} />
-            <h1 className='home-title' >Welcome {user_login.user.name}!</h1>
+            {user_login.user_type === 'user' && 
+                <div>
+                    <h1 className='home-title' >Welcome {user_login.user.name}!</h1>
 
-            {restaurants?.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} user_login={user_login} />
-            ))}
+                    {restaurants?.map((restaurant) => (
+                        <RestaurantCard key={restaurant.id} restaurant={restaurant} user_login={user_login} />
+                    ))}
+                </div>
+            }
+
+            {user_login.user_type === 'restaurant' && 
+                <div>
+                    <h1 className='home-title' >Welcome {user_login.restaurant.name}!</h1>
+                </div>
+            }
         </div>
     );
 }
