@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Navbar from './Navbar';
+import UserNavbar from './UserNavbar';
 
 function Checkout() {
     const location = useLocation();
@@ -9,7 +9,7 @@ function Checkout() {
 
     return (
         <div>
-            <Navbar user_login={user_login} />
+            <UserNavbar user_login={user_login} />
             <h1>Checkout Page</h1>
         </div>
     );

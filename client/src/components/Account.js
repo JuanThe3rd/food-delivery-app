@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Navbar from './Navbar'
+import UserNavbar from './UserNavbar'
+import RestaurantNavbar from './RestaurantNavbar'
 
 function Account() {
     const location = useLocation();
@@ -19,12 +20,14 @@ function Account() {
 
     return (
         <div>
-            <Navbar user_login={user_login} />
-            <h1>Account Page</h1>
             { user_login.user_type === 'user' &&
                 <div>
+                    <UserNavbar user_login={user_login} />
+                    <h1>Account Page</h1>
+
                     <p>Welcome, {user_login.user.name}!</p>
                     <img src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`} className='account-img' />
+
                     {reviews.map((review) => (
                         <div key={review.id} >
                             <h3>{review.restaurant.name}</h3>
@@ -36,6 +39,9 @@ function Account() {
 
             { user_login.user_type === 'restaurant' &&
                 <div>
+                    <RestaurantNavbar user_login={user_login} />
+                    <h1>Account Page</h1>
+
                     <p>Welcome, {user_login.restaurant.name}!</p>
                     <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='account-img' />
 

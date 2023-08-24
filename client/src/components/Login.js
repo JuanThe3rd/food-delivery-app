@@ -49,10 +49,17 @@ function Login() {
         };
 
         if (flag === 1){
-            history.push({
-                pathname: '/home',
-                state: login
-            });
+            if (login.user_type === 'user'){
+                history.push({
+                    pathname: '/home',
+                    state: login
+                });
+            } else if (login.user_type === 'restaurant'){
+                history.push({
+                    pathname: '/account',
+                    state: login
+                })
+            }
         } else {
             setErrorMsg('Invalid Login, Please Try Again')
         };

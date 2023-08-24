@@ -2,12 +2,12 @@
 
 # Standard library imports
 
-from flask import request, make_response, jsonify
+from flask import request, make_response
 from flask_restful import Resource
 from config import app, db, api
 import os
 
-from models import User, Login, Review, Restaurant
+from models import User, Login, Review, Restaurant, MenuItem
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
@@ -182,10 +182,25 @@ class Restaurants(Resource):
             return make_response({'error': 'Restaurant not found'}, 404)
 
 
+class MenuItems(Resource):
+    def get(self, id = None):
+        if id:
+            menuItem = MenuItem.query.filter_by(id = id).first()
+
+            if menuItem:
+                return make_response(menuItem.to_dict(), 200)
+            else:
+                return make_response('Error, item not found', 404)
+        else:
+            menuItems = MenuItem.query.all()
+            return make_response([menuItem.to_dict() for menuItem in menuItems], 200)
+
+
 api.add_resource(Users, '/users', '/users/<int:id>')
 api.add_resource(Logins, '/logins', '/logins/<int:id>')
 api.add_resource(Reviews, '/reviews', '/reviews/<int:id>')
 api.add_resource(Restaurants, '/restaurants', '/restaurants/<int:id>')
+api.add_resource(MenuItems, '/menuItems', '/menuItems/<int:id>')
 
 
 if __name__ == '__main__':

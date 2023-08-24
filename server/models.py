@@ -30,6 +30,68 @@ class User(db.Model, SerializerMixin):
                 raise ValueError('Profile_pic must be an image URL address')
 
 
+class Restaurant(db.Model, SerializerMixin):
+    __tablename__ = 'restaurants'
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
+    owner = db.Column(db.String, nullable=False)
+
+    reviews = db.relationship('Review', cascade = 'all, delete', backref = 'restaurant')
+    logins = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
+    menuitems = db.relationship('MenuItem', cascade = 'all, delete', backref = 'restaurant')
+
+    serialize_rules = ('-reviews.restaurant', '-logins.restaurant', '-menuitems.restaurant')
+
+    def __repr__(self):
+        return f'<Restaurant name: {self.name}, owner: {self.owner} >'
+    
+    @validates('name', 'image', 'owner')
+    def validates_login(self, key, name, image, owner):
+        if key == 'name':
+            if len(name) < 2:
+                raise ValueError('Name must be at least 2 characters long')
+        elif key == 'image':
+            if len(image) < 10:
+                raise ValueError('Image must be an image URL address')
+        elif key == 'owner':
+            if len(owner) == 0:
+                raise ValueError('Owner name must be more than 0 characters')
+
+
+class MenuItem(db.Model, SerializerMixin):
+    __tablename__ = 'menuitems'
+
+    id = db.Column(db.Integer, primary_key = True)
+    item = db.Column(db.String)
+    image = db.Column(db.String)
+    price = db.Column(db.Integer)
+    food_type = db.Column(db.String)
+
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
+
+    serialize_rules = ('-restaurant.menuitems',)
+
+    def __repr__(self):
+        return f'<MenuItem {self.item} from {self.restaurant.name} >'
+    
+    @validates('item', 'image', 'price', 'food_type')
+    def validates_menuItem(self, key, item, image, price, food_type):
+        if key in 'item':
+            if len(item) == 0:
+                raise ValueError('Item name must be at least 1 character long.')
+        elif key == 'image':
+            if len(image) < 10:
+                raise ValueError('Image must be an image URL address')
+        elif key == 'price':
+            if price < 0:
+                raise ValueError('Price must be a positive integer')
+        elif key == 'food_type':
+            if food_type not in ['entree', 'side', 'beverage']:
+                raise ValueError("Food type must either be 'entree', 'side', or 'beverage'")
+
+
 class Login(db.Model, SerializerMixin):
     __tablename__ = 'logins'
 
@@ -70,32 +132,3 @@ class Review(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Review review type: {self.review_type}, content: {self.content} >'
-
-
-class Restaurant(db.Model, SerializerMixin):
-    __tablename__ = 'restaurants'
-
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, nullable=False)
-    image = db.Column(db.String, nullable=False)
-    owner = db.Column(db.String, nullable=False)
-
-    reviews = db.relationship('Review', cascade = 'all, delete', backref = 'restaurant')
-    logins = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
-
-    serialize_rules = ('-reviews.restaurant', '-logins.restaurant')
-
-    def __repr__(self):
-        return f'<Restaurant name: {self.name}, owner: {self.owner} >'
-    
-    @validates('name', 'image', 'owner')
-    def validates_login(self, key, name, image, owner):
-        if key == 'name':
-            if len(name) < 2:
-                raise ValueError('Name must be at least 2 characters long')
-        elif key == 'image':
-            if len(image) < 10:
-                raise ValueError('Image must be an image URL address')
-        elif key == 'owner':
-            if len(owner) == 0:
-                raise ValueError('Owner name must be more than 0 characters')
