@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom"
 
-function UserNavbar({ user_login }){
+function UserNavbar({ user_login, cart }){
     const history = useHistory();
 
     return (
@@ -17,7 +17,7 @@ function UserNavbar({ user_login }){
         if (e.target.name !== ''){
             history.push({
                 pathname: `/${e.target.name}`,
-                state: user_login
+                state: [user_login, cart]
             })
         } else {
             history.push('/')

@@ -10,6 +10,7 @@
   height: 300px;
   justify-content: center;
   opacity: 60%;
+  margin-bottom: 1rem;
 }
 
 .restaurant-card {
@@ -43,4 +44,32 @@
 .account-img {
   height: 300px;
   width: auto;
+}
+
+.menu-container {
+  text-align: center;
+}
+
+.menu-item-container {
+  margin-bottom: 5rem;
+  border: black 2px solid;
+  width: 50%;
+  translate: 50%;
+}
+
+.menu-item-img {
+  width: 50%;
+  height: auto;
+  margin-top: 1rem;
+}
+
+.add-to-cart-btn {
+  margin-bottom: 1rem;
+}
+
+.notification {
+  border: 1px black solid;
+  width: 20rem;
+  translate: 170%;
+  margin-bottom: 1rem;
 }

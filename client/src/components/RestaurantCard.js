@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-function RestaurantCard({ restaurant, user_login }){
+function RestaurantCard({ restaurant, user_login, cart }){
     const history = useHistory();
 
     return (
@@ -16,7 +16,8 @@ function RestaurantCard({ restaurant, user_login }){
             pathname: '/restaurant',
             state: {
                 restaurant: restaurant,
-                user_login: user_login
+                user_login: user_login,
+                cart: cart
             }
         })
     }

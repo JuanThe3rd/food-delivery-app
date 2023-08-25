@@ -52,7 +52,7 @@ function Login() {
             if (login.user_type === 'user'){
                 history.push({
                     pathname: '/home',
-                    state: login
+                    state: [login, []]
                 });
             } else if (login.user_type === 'restaurant'){
                 history.push({

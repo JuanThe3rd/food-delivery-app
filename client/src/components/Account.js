@@ -6,7 +6,8 @@ import RestaurantNavbar from './RestaurantNavbar'
 
 function Account() {
     const location = useLocation();
-    const user_login = location.state;
+    const user_login = location.state[0];
+    const cart = location.state[1];
 
     const [reviews, setReviews] = useState([]);
 
@@ -22,7 +23,7 @@ function Account() {
         <div>
             { user_login.user_type === 'user' &&
                 <div>
-                    <UserNavbar user_login={user_login} />
+                    <UserNavbar user_login={user_login} cart={cart} />
                     <h1>Account Page</h1>
 
                     <p>Welcome, {user_login.user.name}!</p>
