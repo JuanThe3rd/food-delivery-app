@@ -57,7 +57,7 @@ function Login() {
             } else if (login.user_type === 'restaurant'){
                 history.push({
                     pathname: '/account',
-                    state: login
+                    state: [login, []]
                 })
             }
         } else {

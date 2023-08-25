@@ -8,7 +8,8 @@ function RestaurantCard({ restaurant, user_login, cart }){
         <div className='restaurant-card' >
             <h2>{restaurant.name}</h2>
             <img onClick={handleClick} alt={`${restaurant.name}_img`} src={restaurant.image} className='restaurant-card-img' />
-            <button onClick={addReview} >Add Review</button>
+            <br />
+            <button onClick={addReview} className='add-review-btn' >Add Review</button>
         </div>
     )
 

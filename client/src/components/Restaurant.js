@@ -25,8 +25,6 @@ function Restaurant() {
         }
 
         setReviews(restaurant.reviews.filter(review => review.review_type === 'restaurant'))
-
-        console.log(reviews)
     }, [])
 
     return (

@@ -48,6 +48,7 @@
 
 .menu-container {
   text-align: center;
+  justify-content: center;
 }
 
 .menu-item-container {
@@ -67,19 +68,22 @@
   margin-bottom: 1rem;
 }
 
-.review-container {
-  text-align: center;
+.add-review-btn {
+  margin-bottom: 1rem;
 }
 
 .notification {
   border: 1px black solid;
-  width: 20rem;
-  translate: 170%;
   margin-bottom: 1rem;
+  width: 30%;
+  margin-left: 35%;
 }
 
 .review-container {
   border: 1px dashed black;
-  width: 25rem;
-  margin-left: 44%;
+  width: 50%;
+  margin-left: 25%;
+  text-align: center;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
 }

@@ -6,7 +6,7 @@ import UserNavbar from './UserNavbar'
 function Review(){
     const location = useLocation();
     const restaurant = location.state.restaurant;
-    const user = location.state.user_login;
+    const user_login = location.state.user_login;
     const cart = location.state.cart;
 
     const [comment, setComment] = useState();
@@ -14,7 +14,7 @@ function Review(){
 
     return (
         <div>
-            <UserNavbar user_login = {user} cart={cart} />
+            <UserNavbar user_login = {user_login} cart={cart} />
             <div className='review-container'>
                 <h1>Review page</h1>
                 {msg && 
@@ -48,7 +48,7 @@ function Review(){
             body: JSON.stringify({
                 content: comment,
                 review_type: 'restaurant',
-                user_id: user.id,
+                user_id: user_login.user.id,
                 restaurant_id: restaurant.id
             })
         })

@@ -17,7 +17,7 @@ function RestaurantNavbar({ user_login }){
         } else if (e.target.name === 'account'){
             history.push({
                 pathname: '/account',
-                state: user_login
+                state: [user_login,[]]
             })
         }
     }
