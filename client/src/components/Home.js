@@ -15,8 +15,6 @@ function Home() {
         fetch('/restaurants')
             .then(res => res.json())
             .then(setRestaurants)
-
-        console.log(location.state)
     }, [])
 
     return (

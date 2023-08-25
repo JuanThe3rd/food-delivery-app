@@ -67,9 +67,19 @@
   margin-bottom: 1rem;
 }
 
+.review-container {
+  text-align: center;
+}
+
 .notification {
   border: 1px black solid;
   width: 20rem;
   translate: 170%;
   margin-bottom: 1rem;
+}
+
+.review-container {
+  border: 1px dashed black;
+  width: 25rem;
+  margin-left: 44%;
 }

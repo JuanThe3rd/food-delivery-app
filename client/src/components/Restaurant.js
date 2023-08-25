@@ -6,6 +6,7 @@ import UserNavbar from './UserNavbar'
 function Restaurant() {
     const [items, setItems] = useState();
     const [cart, setCart] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [msg, setMsg] = useState();
 
     const location = useLocation();
@@ -22,6 +23,10 @@ function Restaurant() {
         if (old_cart.length !== 0){
             setCart(old_cart)
         }
+
+        setReviews(restaurant.reviews.filter(review => review.review_type === 'restaurant'))
+
+        console.log(reviews)
     }, [])
 
     return (
@@ -31,7 +36,7 @@ function Restaurant() {
                 <h1>{restaurant.name}</h1>
 
                 {msg &&
-                    <div  className='notification' >
+                    <div className='notification' >
                         <h3>{msg}</h3>
                     </div>
                 }
@@ -42,6 +47,14 @@ function Restaurant() {
                         <h3>{item.item}</h3>
                         <p>Price: {item.price}</p>
                         <button className='add-to-cart-btn' onClick={() => handleClick(item)} >Add to cart</button>
+                    </div>
+                ))}
+
+                <h3>Reviews:</h3>
+                {reviews?.map(review => (
+                    <div className='review-container' >
+                        <p>{review.user.name}:</p>
+                        <p>{review.content}</p>
                     </div>
                 ))}
             </div>

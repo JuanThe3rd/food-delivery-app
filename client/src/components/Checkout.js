@@ -19,7 +19,7 @@ function Checkout() {
             <h1>Checkout Page</h1>
             <ol>
             {cart.map(item => (
-                <li>
+                <li key={item.id} >
                     <p>{item.item} <button onClick={() => handleClick(item)} >-</button></p>
                     <p>Price: ${item.price}</p>
                 </li>
