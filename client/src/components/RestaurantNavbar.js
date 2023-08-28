@@ -7,6 +7,7 @@ function RestaurantNavbar({ user_login }){
     return (
         <div className='nav-container' >
             <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Home</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='menu' >Menu</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='' >Log-Out</button>
         </div>
     )
@@ -14,9 +15,9 @@ function RestaurantNavbar({ user_login }){
     function handleClick(e){
         if (e.target.name === ''){
             history.push('/');
-        } else if (e.target.name === 'account'){
+        } else{
             history.push({
-                pathname: '/account',
+                pathname: `/${e.target.name}`,
                 state: [user_login,[]]
             })
         }

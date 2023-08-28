@@ -26,11 +26,11 @@ function Restaurant() {
 
         setReviews(restaurant.reviews.filter(review => review.review_type === 'restaurant'))
     }, [])
-
+    
     return (
         <div>
             <UserNavbar user_login={user_login} cart={cart}/>
-            <div className='menu-container' >
+            <div>
                 <h1>{restaurant.name}</h1>
 
                 {msg &&
@@ -38,23 +38,25 @@ function Restaurant() {
                         <h3>{msg}</h3>
                     </div>
                 }
-
-                {items?.map(item => (
-                    <div key={item.id} className='menu-item-container' >
-                        <img src={item.image} alt={`${item.item}_img`} className='menu-item-img' />
-                        <h3>{item.item}</h3>
-                        <p>Price: {item.price}</p>
-                        <button className='add-to-cart-btn' onClick={() => handleClick(item)} >Add to cart</button>
-                    </div>
-                ))}
-
-                <h3>Reviews:</h3>
-                {reviews?.map(review => (
-                    <div className='review-container' >
-                        <p>{review.user.name}:</p>
-                        <p>{review.content}</p>
-                    </div>
-                ))}
+                <div className='menu-container' >
+                    {items?.map(item => (
+                        <div key={item.id} className='menu-item-container' >
+                            <img src={item.image} alt={`${item.item}_img`} className='menu-item-img' />
+                            <h3>{item.item}</h3>
+                            <p>Price: {item.price}</p>
+                            <button className='add-to-cart-btn' onClick={() => handleClick(item)} >Add to cart</button>
+                        </div>
+                    ))}
+                </div>
+                <div className='reviews-container' >
+                    <h3>Reviews:</h3>
+                    {reviews?.map(review => (
+                        <div className='review-card' >
+                            <p>{review.user.name}:</p>
+                            <p>{review.content}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

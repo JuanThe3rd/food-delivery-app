@@ -7,6 +7,7 @@ import Login from './Login';
 import Register from './Register';
 import Restaurant from './Restaurant';
 import Review from './Review';
+import MenuUpdate from './MenuUpdate'
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
       </Route>
       <Route path='/review'>
         {<Review />}
+      </Route>
+      <Route path='/menu'>
+        {<MenuUpdate />}
       </Route>
     </Switch>
   );

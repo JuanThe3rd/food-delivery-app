@@ -13,11 +13,18 @@
   margin-bottom: 1rem;
 }
 
+.restaurants-container {
+  border: 1px solid black;
+  text-align: center;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+}
+
 .restaurant-card {
   border: #282c34 1px solid;
-  width: 60%;
-  margin-left: 20%;
-  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -49,13 +56,14 @@
 .menu-container {
   text-align: center;
   justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
 }
 
 .menu-item-container {
-  margin-bottom: 5rem;
-  border: black 2px solid;
-  width: 50%;
-  translate: 50%;
+  border: black 1px solid;
 }
 
 .menu-item-img {
@@ -79,11 +87,50 @@
   margin-left: 35%;
 }
 
-.review-container {
+.reviews-container {
+  text-align: center;
+}
+
+.review-card {
   border: 1px dashed black;
   width: 50%;
   margin-left: 25%;
   text-align: center;
   margin-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.update-menu-container {
+  border: 1px solid black;
+  text-align: center;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+}
+
+.update-item-container {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.update-menu-img {
+  width: 70%;
+  height: 60%;
+  justify-self: center;
+}
+
+.remove-item-btn {
+  width: 90%;
+  height: 8%;
+}
+
+.update-item-btn {
+  width: 90%;
+  height: 8%;
+}
+
+.add-menu-item-form {
+  border: 1px solid black;
 }

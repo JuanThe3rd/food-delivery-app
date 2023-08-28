@@ -195,6 +195,33 @@ class MenuItems(Resource):
             menuItems = MenuItem.query.all()
             return make_response([menuItem.to_dict() for menuItem in menuItems], 200)
 
+    def post(self):
+        new_menu_item = MenuItem(**request.json)
+        db.session.add(new_menu_item)
+        db.session.commit()
+        return make_response(new_menu_item.to_dict(), 201)
+
+    def patch(self, id):
+        item = MenuItem.query.filter_by(id = id).first()
+
+        if item:
+            for key, value in request.json.items():
+                setattr(item, key, value)
+                db.session.commit()
+                return make_response(item.to_dict(), 200)
+        else:
+            return make_response({'error': 'Restaurant not found'})
+
+    def delete(self, id):
+        item = MenuItem.query.filter_by(id = id).first()
+
+        if item:
+            db.session.delete(item)
+            db.session.commit()
+            return make_response({'result': 'Menu Item Deleted'}, 200)
+        else:
+            return make_response({'error': 'Menu Item not found'}, 404)
+
 
 api.add_resource(Users, '/users', '/users/<int:id>')
 api.add_resource(Logins, '/logins', '/logins/<int:id>')

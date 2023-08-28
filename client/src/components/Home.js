@@ -22,9 +22,11 @@ function Home() {
             <UserNavbar user_login={user_login} cart={cart} />
             <h1 className='home-title' >Welcome {user_login.user.name}!</h1>
 
-            {restaurants?.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} user_login={user_login} cart={cart} />
-            ))}
+            <div className='restaurants-container' >
+                {restaurants?.map((restaurant) => (
+                    <RestaurantCard key={restaurant.id} restaurant={restaurant} user_login={user_login} cart={cart} />
+                ))}
+            </div>
         </div>
     );
 }
