@@ -24,34 +24,38 @@ function Account() {
             { user_login.user_type === 'user' &&
                 <div>
                     <UserNavbar user_login={user_login} cart={cart} />
-                    <h1>Account Page</h1>
+                    <h1 className='account-header' >Account Page</h1>
 
                     <p>Welcome, {user_login.user.name}!</p>
                     <img src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`} className='account-img' />
 
-                    {reviews.map((review) => (
-                        <div key={review.id} >
-                            <h3>{review.restaurant.name}</h3>
-                            <p>Review: {review.content}</p>
-                        </div>
-                    ))}
+                    <div className='reviews-container' >
+                        {reviews.map((review) => (
+                            <div className='review-card' key={review.id} >
+                                <h3>{review.restaurant.name}</h3>
+                                <p>Review: {review.content}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             }
 
             { user_login.user_type === 'restaurant' &&
                 <div>
                     <RestaurantNavbar user_login={user_login} />
-                    <h1>Account Page</h1>
+                    <h1 className='account-header' >Account Page</h1>
 
                     <p>Welcome, {user_login.restaurant.name}!</p>
                     <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='account-img' />
 
-                    {reviews.map((review) => (
-                        <div key={review.id} >
-                            <h3>{review.user.name}</h3>
-                            <p>Review: {review.content}</p>
-                        </div>
-                    ))}
+                    <div className='reviews-container' >
+                        {reviews.map((review) => (
+                            <div className='review-card' key={review.id} >
+                                <h3>{review.user.name}</h3>
+                                <p>Review: {review.content}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             }
         </div>

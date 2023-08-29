@@ -6,6 +6,7 @@ import RestaurantNavbar from './RestaurantNavbar';
 function MenuUpdate(){
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState({});
+    const [update, setUpdate] = useState();
 
     const location = useLocation();
     const user_login = location.state[0];
@@ -17,7 +18,7 @@ function MenuUpdate(){
     return (
         <div>
             <RestaurantNavbar user_login={user_login} />
-            <h1>Update Menu Page</h1>
+            <h1 className='update-menu-header' >Update Menu Page</h1>
 
             <div className='update-menu-container' >
                 {items.map(item => (
@@ -55,13 +56,18 @@ function MenuUpdate(){
         fetch(`/menuItems/${item.id}`, {method: 'DELETE',})
             .then(res => res.json())
             .then(deletedItem => {
-                console.log(deletedItem)
                 fetchItems();
             })
     }
 
     function handleUpdate(item){
         console.log(`${item.item} being updated...`)
+
+        if (update === true){
+            setUpdate(false)
+        } else {
+            setUpdate(true)
+        }
     }
 
     function handleChange(e){
@@ -71,11 +77,11 @@ function MenuUpdate(){
     function handleSubmit(e){
         e.preventDefault();
 
-        console.log(newItem)
-
         fetch('/menuItems', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 item: newItem.name,
                 image: newItem.image,

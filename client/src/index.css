@@ -49,8 +49,9 @@
 }
 
 .account-img {
-  height: 300px;
+  height: 15rem;
   width: auto;
+  justify-self: center;
 }
 
 .menu-container {
@@ -89,15 +90,20 @@
 
 .reviews-container {
   text-align: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 20%);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
 }
 
 .review-card {
   border: 1px dashed black;
-  width: 50%;
-  margin-left: 25%;
   text-align: center;
-  margin-top: 1rem;
-  padding-bottom: 1rem;
+}
+
+.update-menu-header {
+  text-align: center;
 }
 
 .update-menu-container {
@@ -133,4 +139,8 @@
 
 .add-menu-item-form {
   border: 1px solid black;
+}
+
+.account-header {
+  text-align: center;
 }

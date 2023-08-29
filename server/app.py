@@ -199,7 +199,8 @@ class MenuItems(Resource):
         new_menu_item = MenuItem(**request.json)
         db.session.add(new_menu_item)
         db.session.commit()
-        return make_response(new_menu_item.to_dict(), 201)
+        response = make_response(new_menu_item.to_dict(), 201)
+        return response
 
     def patch(self, id):
         item = MenuItem.query.filter_by(id = id).first()
