@@ -6,10 +6,10 @@ function UserNavbar({ user_login, cart }){
 
     return (
         <div className='nav-container' >
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='home' >Home</button>
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Account</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='' id='log-out-btn' >Log-Out</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='checkout' >Cart</button>
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='' >Log-Out</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Account</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='home' >Home</button>
         </div>
     )
 

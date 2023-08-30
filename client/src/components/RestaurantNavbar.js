@@ -6,9 +6,9 @@ function RestaurantNavbar({ user_login }){
 
     return (
         <div className='nav-container' >
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Home</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='' id='log-out-btn' >Log-Out</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='menu' >Menu</button>
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='' >Log-Out</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Home</button>
         </div>
     )
 

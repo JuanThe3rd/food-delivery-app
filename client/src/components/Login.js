@@ -15,20 +15,21 @@ function Login() {
     }, []);
 
     return (
-        <div>
-            <h1>Login Page!</h1>
+        <div className='login-page' >
+            <h1 className='login-title' >Sign-In!</h1>
+            {errorMsg && <div className='notification' >{errorMsg}</div>}
+            <div className='login-form' >
+                <form onSubmit={handleSubmit} >
+                    <input className='login-input' placeholder='Username' name='username' onChange={handleChange} value={loginData.username} />
+                    <br />
+                    <input className='login-input' placeholder='Password' name='password' onChange={handleChange} value={loginData.password} type='password' />
+                    <br />
+                    <input className='login-submit-btn' type='submit' value='Log In' />
+                </form>
 
-            {errorMsg && <div>{errorMsg}</div>}
-            <form onSubmit={handleSubmit}>
-                <input placeholder='Username' name='username' onChange={handleChange} value={loginData.username} />
-                <br />
-                <input placeholder='Password' name='password' onChange={handleChange} value={loginData.password} type='password' />
-                <br />
-                <input type='submit' value='Log In' />
-            </form>
-
-            <label>Don't have an account?</label>
-            <button onClick={() => history.push('/register')} >Register</button>
+                <label>Don't have an account?</label>
+                <button onClick={() => history.push('/register')} >Register</button>
+            </div>
         </div>
     );
 
@@ -62,6 +63,10 @@ function Login() {
             }
         } else {
             setErrorMsg('Invalid Login, Please Try Again')
+
+            setTimeout(() => {
+                setErrorMsg(null)
+            }, 2000)
         };
     }
 }

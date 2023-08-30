@@ -10,50 +10,52 @@ function Register() {
     const [msg, setMsg] = useState();
 
     return (
-        <div>
-            <h1>Registration Page</h1>
+        <div className='login-page' >
+            <h1 className='login-title' >Register</h1>
 
             {msg && 
-                <div>
+                <div className='notification' >
                     {msg}
                 </div>
             }
 
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <input placeholder='Username' onChange={handleChange} name='username' />
-                <br />
-                <input placeholder='Password' onChange={handleChange} name='password' type='password' />
-                <br />
-                <label>Account Type: </label>
-                <select onChange={(e) => setAccountType(e.target.value)}>
-                    <option value='choosing'>-- Select --</option>
-                    <option value='user'>User</option>
-                    <option value='restaurant'>Restaurant</option>
-                </select>
-                <br />
+            <div className='login-form' >
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <input className='login-input' placeholder='Username' onChange={handleChange} name='username' />
+                    <br />
+                    <input className='login-input' placeholder='Password' onChange={handleChange} name='password' type='password' />
+                    <br />
+                    <label>Account Type: </label>
+                    <select className='login-input' onChange={(e) => setAccountType(e.target.value)}>
+                        <option value='choosing'>-- Select --</option>
+                        <option value='user'>User</option>
+                        <option value='restaurant'>Restaurant</option>
+                    </select>
+                    <br />
 
-                {accountType === 'user' && 
-                    <div>
-                        <input placeholder='Firstname' name='firstname' onChange={handleChange} />
-                        <br/ >
-                        <input placeholder='Profile Picture URL' name='profile_pic' onChange={handleChange} />
-                        <br />
-                    </div>
-                }
+                    {accountType === 'user' && 
+                        <div>
+                            <input className='login-input' placeholder='Firstname' name='firstname' onChange={handleChange} />
+                            <br/ >
+                            <input className='login-input' placeholder='Profile Picture URL' name='profile_pic' onChange={handleChange} />
+                            <br />
+                        </div>
+                    }
 
-                {accountType === 'restaurant' &&
-                    <div>
-                        <input placeholder='Restaurant Name' onChange={handleChange} name='name' value={accountData.name} />
-                        <br />
-                        <input placeholder='Image URL' onChange={handleChange} name='image' value={accountData.image} />
-                        <br />
-                        <input placeholder='Owner Name' onChange={handleChange} name='owner' value={accountData.owner} />
-                        <br />
-                    </div>
-                }
+                    {accountType === 'restaurant' &&
+                        <div>
+                            <input className='login-input' placeholder='Restaurant Name' onChange={handleChange} name='name' value={accountData.name} />
+                            <br />
+                            <input className='login-input' placeholder='Image URL' onChange={handleChange} name='image' value={accountData.image} />
+                            <br />
+                            <input className='login-input' placeholder='Owner Name' onChange={handleChange} name='owner' value={accountData.owner} />
+                            <br />
+                        </div>
+                    }
 
-                <input type='submit' />
-            </form>
+                    <input className='login-submit-btn' type='submit' />
+                </form>
+            </div>
         </div>
     );
 

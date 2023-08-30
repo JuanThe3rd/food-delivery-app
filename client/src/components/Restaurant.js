@@ -53,7 +53,7 @@ function Restaurant() {
                 <h3 className='reviews-title' >Reviews:</h3>
                 <div className='reviews-container' >
                     {reviews?.map(review => (
-                        <div className='review-card' >
+                        <div key={review.id} className='review-card' >
                             <p>{review.user.name}:</p>
                             <p>{review.content}</p>
                         </div>
@@ -64,8 +64,25 @@ function Restaurant() {
     );
 
     function handleClick(newItem){
-        setCart([...cart, newItem]);
+        let flag = false;
+        let oldItemPos = null;
         setMsg('Item added to cart');
+        
+        for (let i = 0; i < cart.length; i++){
+            if (cart[i].id === newItem.id){
+                flag = true
+                oldItemPos = i;
+            }
+        }
+
+        if (flag === true){
+            let newCart = [...cart];
+            newCart[oldItemPos].quantity++;
+            setCart(newCart);
+        } else {
+            newItem.quantity = 1;
+            setCart([...cart, newItem]);
+        }
         
         setTimeout(() => {
             setMsg(null);

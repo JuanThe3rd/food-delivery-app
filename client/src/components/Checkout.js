@@ -10,7 +10,7 @@ function Checkout() {
     let total = 0;
 
     for(let i = 0; i < cart.length; i++){
-        total += cart[i].price;
+        total += cart[i].price * cart[i].quantity;
     }
 
     return (
@@ -20,15 +20,44 @@ function Checkout() {
             <ol>
             {cart.map(item => (
                 <li key={item.id} >
-                    <p>{item.item} <button onClick={() => handleClick(item)} >-</button></p>
+                    <p>{item.item}</p>
+                    <img src={item.image} alt={`${item.item}_img`} className='cart-item-img' />
                     <p>Price: ${item.price}</p>
+                    <div className='quantity-container' >
+                        <span onClick={() => incrementQuantity('minus', item)} className='minus-quantity'>-</span>
+                        <span className='num-quantity'>{item.quantity}</span>
+                        <span onClick={() => incrementQuantity('plus', item)} className='plus-quantity'>+</span>
+                    </div>
                 </li>
             ))}
             </ol>
-            <h3>Total: ${total}</h3>
+            <h3>Sub-Total: ${total}</h3>
             <button onClick={handleCheckout} >Checkout</button>
         </div>
     );
+
+    function incrementQuantity(action, item){
+        let itemToChangePos = null;
+        let newCart = [...cart];
+
+        for (let i = 0; i < cart.length; i++){
+            if (cart[i].id === item.id){
+                itemToChangePos = i;
+            }
+        }
+
+        if (action === 'minus'){
+            if (newCart[itemToChangePos].quantity === 1){
+                setCart(cart.filter(cartItem => cartItem.id !== item.id))
+            } else {
+                newCart[itemToChangePos].quantity--;
+                setCart(newCart)
+            }
+        } else if (action === 'plus'){
+            newCart[itemToChangePos].quantity++;
+            setCart(newCart)
+        }
+    }
 
     function handleCheckout(){
 /*
@@ -44,18 +73,6 @@ function Checkout() {
             })
         })
 */
-    }
-
-    function handleClick(deletedItem){
-        let flag = false;
-        
-        setCart(cart.filter(item => {
-            if (item.id !== deletedItem.id || flag === true){
-                return item
-            } else{
-                flag = true;
-            }
-        }))
     }
 }
 
