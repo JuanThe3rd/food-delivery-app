@@ -31,13 +31,14 @@ function Restaurant() {
         <div>
             <UserNavbar user_login={user_login} cart={cart}/>
             <div>
-                <h1>{restaurant.name}</h1>
+                <h1 className='restaurant-title' >{restaurant.name}</h1>
 
                 {msg &&
                     <div className='notification' >
                         <h3>{msg}</h3>
                     </div>
                 }
+
                 <div className='menu-container' >
                     {items?.map(item => (
                         <div key={item.id} className='menu-item-container' >
@@ -48,8 +49,9 @@ function Restaurant() {
                         </div>
                     ))}
                 </div>
+
+                <h3 className='reviews-title' >Reviews:</h3>
                 <div className='reviews-container' >
-                    <h3>Reviews:</h3>
                     {reviews?.map(review => (
                         <div className='review-card' >
                             <p>{review.user.name}:</p>

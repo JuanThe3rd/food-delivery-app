@@ -26,8 +26,25 @@ function Checkout() {
             ))}
             </ol>
             <h3>Total: ${total}</h3>
+            <button onClick={handleCheckout} >Checkout</button>
         </div>
     );
+
+    function handleCheckout(){
+/*
+        fetch('/past_orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                total: total,
+                user_id: user_login.user.id,
+                restaurant_id: restaurant.id
+            })
+        })
+*/
+    }
 
     function handleClick(deletedItem){
         let flag = false;

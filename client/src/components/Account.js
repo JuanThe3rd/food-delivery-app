@@ -27,7 +27,9 @@ function Account() {
                     <h1 className='account-header' >Account Page</h1>
 
                     <p>Welcome, {user_login.user.name}!</p>
-                    <img src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`} className='account-img' />
+                    <div className='account-img-container'>
+                        <img src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`} className='account-img' />
+                    </div>
 
                     <div className='reviews-container' >
                         {reviews.map((review) => (
@@ -46,7 +48,9 @@ function Account() {
                     <h1 className='account-header' >Account Page</h1>
 
                     <p>Welcome, {user_login.restaurant.name}!</p>
-                    <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='account-img' />
+                    <div className='account-img-container'>
+                        <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='account-img' />
+                    </div>
 
                     <div className='reviews-container' >
                         {reviews.map((review) => (

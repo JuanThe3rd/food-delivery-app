@@ -7,7 +7,7 @@ from flask_restful import Resource
 from config import app, db, api
 import os
 
-from models import User, Login, Review, Restaurant, MenuItem
+from models import User, Login, Review, Restaurant, MenuItem, PastOrder
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
@@ -203,15 +203,15 @@ class MenuItems(Resource):
         return response
 
     def patch(self, id):
-        item = MenuItem.query.filter_by(id = id).first()
+        item = MenuItem.query.filter_by(id = id).one_or_none()
 
-        if item:
+        if item is None:
+            return make_response({'error': 'Restaurant not found'}, 404)
+        else:
             for key, value in request.json.items():
                 setattr(item, key, value)
-                db.session.commit()
-                return make_response(item.to_dict(), 200)
-        else:
-            return make_response({'error': 'Restaurant not found'})
+            db.session.commit()
+            return make_response(item.to_dict(), 200)
 
     def delete(self, id):
         item = MenuItem.query.filter_by(id = id).first()
@@ -224,11 +224,53 @@ class MenuItems(Resource):
             return make_response({'error': 'Menu Item not found'}, 404)
 
 
+class PastOrders(Resource):
+    def get(self, id = None):
+        if id:
+            pastorder = PastOrder.query.filter_by(id = id).first()
+
+            if pastorder:
+                return make_response(pastorder.to_dict(), 200)
+            else:
+                return make_response({'error': 'Error, past order not found'}, 404)
+        else:
+            pastorders = PastOrder.query.all()
+            return make_response([order.to_dict() for order in pastorders], 200)
+        
+    def post(self):
+        new_past_order = PastOrder(**request.json)
+        db.session.add(new_past_order)
+        db.session.commit()
+        return make_response(new_past_order.to_dict(), 201)
+    
+    def patch(self, id):
+        past_order = PastOrder.query.filter_by(id = id).first()
+
+        if past_order:
+            for key, value in request.json.items():
+                setattr(past_order, key, value)
+            db.session.commit()
+            return make_response(past_order.to_dict(), 200)
+        else:
+            return make_response({'error': 'Error, past order not found'}, 404)
+
+    def delete(self, id):
+        past_order = PastOrder.query.filter_by(id = id).first()
+
+        if past_order:
+            db.session.delete(past_order)
+            db.session.commit()
+            return make_response({'result': 'Past Order Deleted'}, 200)
+        else:
+            return make_response({'error': 'Past Order not found'}, 404)
+
+
 api.add_resource(Users, '/users', '/users/<int:id>')
 api.add_resource(Logins, '/logins', '/logins/<int:id>')
 api.add_resource(Reviews, '/reviews', '/reviews/<int:id>')
 api.add_resource(Restaurants, '/restaurants', '/restaurants/<int:id>')
 api.add_resource(MenuItems, '/menuItems', '/menuItems/<int:id>')
+api.add_resource(PastOrders, '/pastorders', '/pastorders/<int:id>')
 
 
 if __name__ == '__main__':

@@ -32,25 +32,48 @@
   text-align: center;
 }
 
+.restaurant-title {
+  text-align: center;
+}
+
+.reviews-title {
+  text-align: center;
+}
+
 .nav-link {
+  border-radius: 10px;
   color: blue;
+  text-align: center;
+  font-size: 1rem;
   margin-left: 1rem;
   margin-top: 1rem;
-  border-radius: 10px;
-  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.nav-link:hover {
+  background-color: black;
+  color: white;
+}
+
+.nav-link:active {
+  background-color: #61dafb;
 }
 
 .nav-container {
-  background-color: red;
-  width: 120%;
-  margin-left: -1rem;
+  background-color: rgb(57, 209, 232);
+  overflow: hidden;
   margin-top: -0.5rem;
-  height: 4rem;
+  margin-right: -0.5rem;
+  margin-left: -1rem;
+}
+
+.account-img-container{
+  text-align: center;
 }
 
 .account-img {
-  height: 15rem;
-  width: auto;
+  width: 25%;
+  height: auto;
   justify-self: center;
 }
 
@@ -109,7 +132,7 @@
 .update-menu-container {
   border: 1px solid black;
   text-align: center;
-  padding: 3rem;
+  padding: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
@@ -118,7 +141,8 @@
 
 .update-item-container {
   border: 1px solid black;
-  padding: 1rem;
+  padding: 2rem;
+  height: 25rem;
 }
 
 .update-menu-img {
@@ -143,4 +167,37 @@
 
 .account-header {
   text-align: center;
+}
+
+.modal-container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 1rem;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
