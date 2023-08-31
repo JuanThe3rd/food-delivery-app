@@ -7,7 +7,7 @@
 }
 
 .nav-container {
-  width: 100%;
+  width: 98.85%;
   background-color: rgb(57, 209, 232);
   overflow: hidden;
   margin-top: -0.5rem;
@@ -66,6 +66,7 @@
   width: 25%;
   padding: 1rem;
   margin: auto;
+  text-align: center;
 }
 
 .login-title {
@@ -287,6 +288,24 @@
   padding: 1rem;
   border: 1px solid #888;
   width: 80%;
+}
+
+.notif-text {
+  width: 50%;
+  margin: auto;
+}
+
+.new-cart-container {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.new-cart-btn {
+
+}
+
+.old-cart-btn {
+  margin-left: 1rem;
 }
 
 .close-modal {

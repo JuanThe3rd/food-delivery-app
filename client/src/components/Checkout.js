@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import UserNavbar from './UserNavbar';
 
 function Checkout() {
     const location = useLocation();
+    const history = useHistory();
     const user_login = location.state[0];
     const [cart, setCart] = useState(location.state[1]);
     const restaurant = location.state[2];
+    const [msg, setMsg] = useState();
     let total = 0;
 
     for(let i = 0; i < cart.length; i++){
         total += cart[i].price * cart[i].quantity;
     }
 
-    console.log(location.state)
-
     return (
         <div>
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <h1>Checkout Page</h1>
+            {msg && 
+                <div className='notification' >
+                    <p>Cart is empty, add some things before checking out</p>
+                </div>
+            }
             <ol>
             {cart.map(item => (
                 <li key={item.id} >
@@ -63,19 +68,51 @@ function Checkout() {
     }
 
     function handleCheckout(){
-/*
-        fetch('/past_orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                total: total,
-                user_id: user_login.user.id,
-                restaurant_id: restaurant.id
+        let cartIDS = ''
+        let quantities = ''
+
+        for(let i = 0; i < cart.length; i++){
+            if (cartIDS === ''){
+                cartIDS += `${cart[i].id}`
+            } else {
+                cartIDS += `-${cart[i].id}`
+            }
+
+            if (quantities === ''){
+                quantities += `${cart[i].quantity}`
+            } else {
+                quantities += `-${cart[i].quantity}`
+            }
+        }
+
+        if (cart.length === 0){
+            setMsg(1);
+
+            setTimeout(() => {
+                setMsg(null);
+            }, 2000)
+        } else {
+            fetch('/pastorders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    total: total,
+                    user_id: user_login.user.id,
+                    restaurant_id: cart[0].restaurant_id,
+                    menuItemIDs: cartIDS,
+                    quantities: quantities
+                })
             })
-        })
-*/
+                .then(res => res.json())
+                .then(newOrder => {
+                    history.push({
+                        pathname: '/account',
+                        state: [user_login, [], null]
+                    })
+                })
+        }
     }
 }
 

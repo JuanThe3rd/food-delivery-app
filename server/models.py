@@ -37,11 +37,12 @@ class PastOrder(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     total = db.Column(db.Integer)
     menuItemIDs = db.Column(db.String)
+    quantities = db.Column(db.String)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
 
-    serialize_rules = ('-user.past_orders', '-restaurant.past_orders', '-menuitems.past_order')
+    serialize_rules = ('-user.past_orders', '-restaurant.past_orders')
 
     def __repr__(self):
         return f'<PastOrder >'

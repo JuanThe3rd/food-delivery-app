@@ -8,6 +8,8 @@ function Restaurant() {
     const [cart, setCart] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [msg, setMsg] = useState();
+    const [modal, setModal] = useState();
+    const [newCartItem, setNewCartItem] = useState([]);
 
     const location = useLocation();
     const data = location.state;
@@ -32,6 +34,21 @@ function Restaurant() {
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <div>
                 <h1 className='restaurant-title' >{restaurant.name}</h1>
+                {modal &&
+                    <div className='modal-container' >
+                        <div className='modal-content' >
+                            <span className='close-modal' onClick={() => setModal(null)} >&times;</span>
+                            <p className='notif-text' >
+                                It seems you are trying to order food from a different restaurant than what's in your cart. 
+                                Are you sure you want to empty your cart and start a new order?
+                            </p>
+                            <div className='new-cart-container'>
+                                <button className='new-cart-btn' onClick={makeNewCart} >Yes</button>
+                                <button className='old-cart-btn' onClick={() => setModal(null)} >No</button>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 {msg &&
                     <div className='notification' >
@@ -61,31 +78,42 @@ function Restaurant() {
                 </div>
             </div>
         </div>
-    );
+    )
+
+    function makeNewCart(){
+        setCart(newCartItem);
+        setModal(null);
+    }
 
     function handleClick(newItem){
         let flag = false;
         let oldItemPos = null;
-        setMsg('Item added to cart');
-        
-        for (let i = 0; i < cart.length; i++){
-            if (cart[i].id === newItem.id){
-                flag = true
-                oldItemPos = i;
-            }
-        }
 
-        if (flag === true){
-            let newCart = [...cart];
-            newCart[oldItemPos].quantity++;
-            setCart(newCart);
+        if (cart.length > 0 && restaurant.id !== cart[0].restaurant_id){
+            setNewCartItem([newItem])
+            setModal(1);
         } else {
-            setCart([...cart, newItem]);
-        }
+            setMsg('Item added to cart');
         
-        setTimeout(() => {
-            setMsg(null);
-        }, 2000);
+            for (let i = 0; i < cart.length; i++){
+                if (cart[i].id === newItem.id){
+                    flag = true
+                    oldItemPos = i;
+                }
+            }
+
+            if (flag === true){
+                let newCart = [...cart];
+                newCart[oldItemPos].quantity++;
+                setCart(newCart);
+            } else {
+                setCart([...cart, newItem]);
+            }
+            
+            setTimeout(() => {
+                setMsg(null);
+            }, 2000);
+        }
     }
 }
 
