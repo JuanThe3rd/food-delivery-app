@@ -10,12 +10,14 @@ function Account() {
     const cart = location.state[1];
 
     const [reviews, setReviews] = useState([]);
+    const [pastOrders, setPastOrders] = useState([]);
 
     useEffect(() => {
         if(user_login.user_type === 'restaurant'){
-            setReviews(user_login.restaurant.reviews.filter(review => review.review_type === 'restaurant'))
+            setReviews(user_login.restaurant.reviews.filter(review => review.review_type === 'restaurant'));
         } else if (user_login.user_type === 'user'){
-            setReviews(user_login.user.reviews.filter(review => review.review_type === 'customer'))
+            setReviews(user_login.user.reviews.filter(review => review.review_type === 'customer'));
+            setPastOrders(user_login.past_orders);
         }
     }, [])
 
@@ -30,6 +32,16 @@ function Account() {
                     <div className='account-img-container'>
                         <img src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`} className='account-img' />
                     </div>
+                    
+                    { pastOrders &&
+                        <div className='past-orders-container' >
+                            {pastOrders.map(order => (
+                                <div>
+                                    <h1>{order.total}</h1>
+                                </div>
+                            ))}
+                        </div>
+                    }
 
                     <div className='reviews-container' >
                         {reviews.map((review) => (

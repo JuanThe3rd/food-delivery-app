@@ -29,7 +29,7 @@ function Restaurant() {
     
     return (
         <div>
-            <UserNavbar user_login={user_login} cart={cart}/>
+            <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <div>
                 <h1 className='restaurant-title' >{restaurant.name}</h1>
 
@@ -80,7 +80,6 @@ function Restaurant() {
             newCart[oldItemPos].quantity++;
             setCart(newCart);
         } else {
-            newItem.quantity = 1;
             setCart([...cart, newItem]);
         }
         

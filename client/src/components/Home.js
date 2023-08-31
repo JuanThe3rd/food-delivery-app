@@ -6,8 +6,9 @@ import UserNavbar from './UserNavbar';
 
 function Home() {
     const location = useLocation();
-    const user_login = location.state[0]
-    const cart = location.state[1]
+    const user_login = location.state[0];
+    const cart = location.state[1];
+    const restaurant = location.state[2];
 
     const [restaurants, setRestaurants] = useState();
 
@@ -19,7 +20,7 @@ function Home() {
 
     return (
         <div>
-            <UserNavbar user_login={user_login} cart={cart} />
+            <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <h1 className='home-title' >Welcome {user_login.user.name}!</h1>
 
             <div className='restaurants-container' >

@@ -14,7 +14,7 @@ function Review(){
 
     return (
         <div>
-            <UserNavbar user_login = {user_login} cart={cart} />
+            <UserNavbar user_login = {user_login} cart={cart} restaurant={restaurant} />
             <div className='review-container'>
                 <h1>Review page</h1>
                 {msg && 

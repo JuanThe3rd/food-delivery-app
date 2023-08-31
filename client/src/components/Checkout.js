@@ -7,15 +7,18 @@ function Checkout() {
     const location = useLocation();
     const user_login = location.state[0];
     const [cart, setCart] = useState(location.state[1]);
+    const restaurant = location.state[2];
     let total = 0;
 
     for(let i = 0; i < cart.length; i++){
         total += cart[i].price * cart[i].quantity;
     }
 
+    console.log(location.state)
+
     return (
         <div>
-            <UserNavbar user_login={user_login} cart={cart} />
+            <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <h1>Checkout Page</h1>
             <ol>
             {cart.map(item => (

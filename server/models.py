@@ -36,11 +36,10 @@ class PastOrder(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     total = db.Column(db.Integer)
+    menuItemIDs = db.Column(db.String)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
-
-    menuitems = db.relationship('MenuItem', cascade = 'all, delete', backref = 'past_order')
 
     serialize_rules = ('-user.past_orders', '-restaurant.past_orders', '-menuitems.past_order')
 
@@ -75,9 +74,9 @@ class MenuItem(db.Model, SerializerMixin):
     image = db.Column(db.String)
     price = db.Column(db.Integer)
     food_type = db.Column(db.String)
+    quantity = db.Column(db.Integer)
 
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
-    past_order_id = db.Column(db.Integer, db.ForeignKey('past_orders.id'))
 
     serialize_rules = ('-restaurant.menuitems',)
 
