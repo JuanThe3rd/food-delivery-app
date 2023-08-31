@@ -16,8 +16,8 @@ function Login() {
 
     return (
         <div className='login-page' >
-            <h1 className='login-title' >Sign-In!</h1>
             {errorMsg && <div className='notification' >{errorMsg}</div>}
+            <h1 className='login-title' >Sign-In!</h1>
             <div className='login-form' >
                 <form onSubmit={handleSubmit} >
                     <input className='login-input' placeholder='Username' name='username' onChange={handleChange} value={loginData.username} />

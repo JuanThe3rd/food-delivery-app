@@ -11,13 +11,12 @@ function Register() {
 
     return (
         <div className='login-page' >
-            <h1 className='login-title' >Register</h1>
-
             {msg && 
                 <div className='notification' >
                     {msg}
                 </div>
             }
+            <h1 className='login-title' >Register</h1>
 
             <div className='login-form' >
                 <form onSubmit={(e) => handleSubmit(e)}>

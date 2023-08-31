@@ -14,9 +14,8 @@ class User(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', cascade = 'all, delete', backref = 'user')
     logins = db.relationship('Login', cascade = 'all, delete', backref = 'user')
-    past_orders = db.relationship('PastOrder', cascade = 'all, delete', backref = 'user')
 
-    serialize_rules = ('-reviews.user', '-logins.user', '-past_orders.user')
+    serialize_rules = ('-reviews.user', '-logins.user')
 
     def __repr__(self):
         return f'<User name: {self.name} >'
@@ -31,22 +30,6 @@ class User(db.Model, SerializerMixin):
                 raise ValueError('Profile_pic must be an image URL address')
 
 
-class PastOrder(db.Model, SerializerMixin):
-    __tablename__ = 'past_orders'
-
-    id = db.Column(db.Integer, primary_key = True)
-    total = db.Column(db.Integer)
-    menuItemIDs = db.Column(db.String)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
-
-    serialize_rules = ('-user.past_orders', '-restaurant.past_orders', '-menuitems.past_order')
-
-    def __repr__(self):
-        return f'<PastOrder >'
-
-
 class Restaurant(db.Model, SerializerMixin):
     __tablename__ = 'restaurants'
 
@@ -58,12 +41,25 @@ class Restaurant(db.Model, SerializerMixin):
     reviews = db.relationship('Review', cascade = 'all, delete', backref = 'restaurant')
     logins = db.relationship('Login', cascade = 'all, delete', backref = 'restaurant')
     menuitems = db.relationship('MenuItem', cascade = 'all, delete', backref = 'restaurant')
-    past_orders = db.relationship('PastOrder', cascade = 'all, delete', backref = 'restaurant')
 
-    serialize_rules = ('-reviews.restaurant', '-logins.restaurant', '-menuitems.restaurant', '-past_orders.restaurant')
+    serialize_rules = ('-reviews.restaurant', '-logins.restaurant', '-menuitems.restaurant')
 
     def __repr__(self):
         return f'<Restaurant name: {self.name}, owner: {self.owner} >'
+
+
+class PastOrder(db.Model, SerializerMixin):
+    __tablename__ = 'pastorders'
+
+    id = db.Column(db.Integer, primary_key = True)
+    total = db.Column(db.Integer)
+    menuItemIDs = db.Column(db.String)
+    quantities = db.Column(db.String)
+    user_id = db.Column(db.Integer)
+    restaurant_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<PastOrder Total: {self.total} >'
 
 
 class MenuItem(db.Model, SerializerMixin):

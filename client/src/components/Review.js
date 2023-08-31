@@ -14,14 +14,14 @@ function Review(){
 
     return (
         <div>
+            {msg && 
+                <div className='notification' >
+                    {msg}
+                </div>
+            }
             <UserNavbar user_login = {user_login} cart={cart} restaurant={restaurant} />
             <div className='review-container'>
                 <h1>Review page</h1>
-                {msg && 
-                    <div className='notification' >
-                        <h3>{msg}</h3>
-                    </div>
-                }
                 <form onSubmit={handleSubmit}>
                     <label>Leave Review: </label> 
                     <br />
