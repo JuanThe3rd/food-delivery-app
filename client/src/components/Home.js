@@ -21,7 +21,7 @@ function Home() {
     return (
         <div>
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
-            <h1 className='home-title' >Welcome {user_login.user.name}!</h1>
+            <h1 className='page-title' >Welcome {user_login.user.name}!</h1>
 
             <div className='restaurants-container' >
                 {restaurants?.map((restaurant) => (

@@ -38,7 +38,7 @@ function Restaurant() {
             }
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <div>
-                <h1 className='restaurant-title' >{restaurant.name}</h1>
+                <h1 className='page-title' >{restaurant.name}</h1>
                 {modal &&
                     <div className='modal-container' >
                         <div className='modal-content' >

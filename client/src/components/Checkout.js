@@ -24,7 +24,7 @@ function Checkout() {
                 </div>
             }
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
-            <h1>Cart</h1>
+            <h1 className='page-title' >Cart</h1>
             <ol>
             {cart.map(item => (
                 <li key={item.id} >
@@ -38,9 +38,9 @@ function Checkout() {
                     </div>
                 </li>
             ))}
+                <h4 className='total' >Total: {Math.round(total * 100) / 100}</h4>
+                <button className='checkout-btn' onClick={handleCheckout} >Checkout</button>
             </ol>
-            <h3>Sub-Total: ${total}</h3>
-            <button onClick={handleCheckout} >Checkout</button>
         </div>
     );
 
