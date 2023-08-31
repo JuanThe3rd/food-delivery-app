@@ -68,7 +68,9 @@
   color: black;
   width: 20%;
   padding: 1rem;
-  margin: auto;
+  margin-left: 75%;
+  margin-top: 5rem;
+  position: fixed;
 }
 
 .login-title {

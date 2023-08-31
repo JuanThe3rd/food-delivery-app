@@ -30,8 +30,6 @@ class User(db.Model, SerializerMixin):
                 raise ValueError('Profile_pic must be an image URL address')
 
 
-<<<<<<< HEAD
-=======
 class PastOrder(db.Model, SerializerMixin):
     __tablename__ = 'past_orders'
 
@@ -39,17 +37,13 @@ class PastOrder(db.Model, SerializerMixin):
     total = db.Column(db.Integer)
     menuItemIDs = db.Column(db.String)
     quantities = db.Column(db.String)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
-
-    serialize_rules = ('-user.past_orders', '-restaurant.past_orders')
+    user_id = db.Column(db.Integer)
+    restaurant_id = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'<PastOrder >'
+        return f'<PastOrder Total: {self.total} >'
 
 
->>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
 class Restaurant(db.Model, SerializerMixin):
     __tablename__ = 'restaurants'
 

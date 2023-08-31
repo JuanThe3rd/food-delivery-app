@@ -76,7 +76,7 @@ function Account() {
                         {reviews.map((review) => (
                             <div className='review-card' key={review.id} >
                                 <h3>{review.restaurant.name}</h3>
-                                <p>Review: {review.content}</p>
+                                <p>{review.content}</p>
                             </div>
                         ))}
                     </div>
@@ -97,7 +97,7 @@ function Account() {
                         {reviews.map((review) => (
                             <div className='review-card' key={review.id} >
                                 <h3>{review.user.name}</h3>
-                                <p>Review: {review.content}</p>
+                                <p>{review.content}</p>
                             </div>
                         ))}
                     </div>

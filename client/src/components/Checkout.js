@@ -24,16 +24,7 @@ function Checkout() {
                 </div>
             }
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
-<<<<<<< HEAD
             <h1>Cart</h1>
-=======
-            <h1>Checkout Page</h1>
-            {msg && 
-                <div className='notification' >
-                    <p>Cart is empty, add some things before checking out</p>
-                </div>
-            }
->>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
             <ol>
             {cart.map(item => (
                 <li key={item.id} >
@@ -77,13 +68,8 @@ function Checkout() {
     }
 
     function handleCheckout(){
-<<<<<<< HEAD
         let cartIDS = '';
         let quantities = '';
-=======
-        let cartIDS = ''
-        let quantities = ''
->>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
 
         for(let i = 0; i < cart.length; i++){
             if (cartIDS === ''){
@@ -113,17 +99,10 @@ function Checkout() {
                 },
                 body: JSON.stringify({
                     total: total,
-<<<<<<< HEAD
                     menuItemIDs: cartIDS,
                     quantities: quantities,
                     user_id: user_login.user_id,
                     restaurant_id: cart[0].restaurant_id
-=======
-                    user_id: user_login.user.id,
-                    restaurant_id: cart[0].restaurant_id,
-                    menuItemIDs: cartIDS,
-                    quantities: quantities
->>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
                 })
             })
                 .then(res => res.json())
