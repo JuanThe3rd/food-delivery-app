@@ -52,6 +52,15 @@ function Restaurant() {
                                 <button className='old-cart-btn' onClick={() => setModal(null)} >No</button>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+                    </div>
+                }
+
+                {msg &&
+                    <div className='notification' >
+                        <h3>{msg}</h3>
+>>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
                     </div>
                 }
 
@@ -77,7 +86,12 @@ function Restaurant() {
                 </div>
             </div>
         </div>
-    );
+    )
+
+    function makeNewCart(){
+        setCart(newCartItem);
+        setModal(null);
+    }
 
     function makeNewCart(){
         setCart(newCartItem);
@@ -87,6 +101,7 @@ function Restaurant() {
     function handleClick(newItem){
         let flag = false;
         let oldItemPos = null;
+<<<<<<< HEAD
         
         if (cart.length > 0 && restaurant.id !== cart[0].restaurant_id){
             setNewCartItem([newItem])
@@ -94,6 +109,15 @@ function Restaurant() {
         } else {
             setMsg('Item added to cart');
         
+=======
+
+        if (cart.length > 0 && restaurant.id !== cart[0].restaurant_id){
+            setNewCartItem([newItem])
+            setModal(1);
+        } else {
+            setMsg('Item added to cart');
+        
+>>>>>>> 11a8878d8f138d8bc4cdff72eec84dac6e872b61
             for (let i = 0; i < cart.length; i++){
                 if (cart[i].id === newItem.id){
                     flag = true
