@@ -85,99 +85,99 @@ function Register() {
     function handleSubmit(e){
         e.preventDefault();
 
+        console.log(accountData)
+/*
         if (accountType === 'user'){
-            if (accountData.firstname.length > 1 && accountData.username > 6 && accountData.password > 4){
-                fetch('/users', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        name: accountData.firstname,
-                        profile_pic: accountData.profile_pic
-                    })
+            fetch('/users', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: accountData.firstname,
+                    profile_pic: accountData.profile_pic
                 })
-                    .then(res => res.json())
-                    .then(account => setNewAccountID(account.id))
-                    .catch(() => {
-                        setMsg('Please follow instructions for creating an account')
+            })
+                .then(res => res.json())
+                .then(account => setNewAccountID(account.id))
+                .catch(() => {
+                    setMsg('Please follow instructions for creating an account')
 
-                        setTimeout(() => {
-                            setMsg(null)
-                        }, 2000)
-                    })
-                
-                fetch('/logins', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        username: accountData.username,
-                        password: accountData.password,
-                        user_type: 'user',
-                        user_id: newAccountID,
-                        restaurant_id: null
-                    })
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 2000)
                 })
-                    .then(res => res.json())
-                    .then(newLogin => {
-                        setMsg('Account Successfully Created! Redirecting...');
-                        setTimeout(() => {
-                            history.push('/');
-                        }, 3000)
-                    })
-            } else {
-                setMsg('Please follow instructions for creating an account')
+            
+            fetch('/logins', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    username: accountData.username,
+                    password: accountData.password,
+                    user_type: 'user',
+                    user_id: newAccountID,
+                    restaurant_id: null
+                })
+            })
+                .then(res => res.json())
+                .then(newLogin => {
+                    setMsg('Account Successfully Created! Redirecting...');
+                    setTimeout(() => {
+                        history.push('/');
+                    }, 3000)
+                })
+                .catch(() => {
+                    setMsg('Please follow instructions for creating an account')
 
-                setTimeout(() => {
-                    setMsg(null)
-                }, 2000)
-            }
-
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 2000)
+                })
         } else if (accountType ==='restaurant'){
-            if (accountData.name.length > 1 && accountData.owner.length > 1 && accountData.username > 6 && accountData.password > 4){
-                fetch('/restaurants', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        name: accountData.name,
-                        image: accountData.image,
-                        owner: accountData.owner
-                    })
+            fetch('/restaurants', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: accountData.name,
+                    image: accountData.image,
+                    owner: accountData.owner
                 })
-                    .then(res => res.json())
-                    .then(account => setNewAccountID(account.id))
-                    .catch(() => {
-                        setMsg('Please follow instructions for creating an account')
+            })
+                .then(res => res.json())
+                .then(account => setNewAccountID(account.id))
+                .catch(() => {
+                    setMsg('Please follow instructions for creating an account')
 
-                        setTimeout(() => {
-                            setMsg(null)
-                        }, 2000)
-                    })
-                
-                fetch('/logins', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        username: accountData.username,
-                        password: accountData.password,
-                        user_type: 'restaurant',
-                        restaurant_id: newAccountID,
-                        user_id: null
-                    })
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 2000)
                 })
-                    .then(res => res.json())
-                    .then(newLogin => {
-                        setMsg('Account Successfully Created! Redirecting...');
-                        setTimeout(() => {
-                            history.push('/');
-                        }, 3000)
-                    })
-            } else {
-                setMsg('Please follow instructions for creating an account');
-    
-                        setTimeout(() => {
-                            setMsg(null)
-                        }, 2000)
-            }
+            
+            fetch('/logins', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    username: accountData.username,
+                    password: accountData.password,
+                    user_type: 'restaurant',
+                    restaurant_id: newAccountID,
+                    user_id: null
+                })
+            })
+                .then(res => res.json())
+                .then(newLogin => {
+                    setMsg('Account Successfully Created! Redirecting...');
+                    setTimeout(() => {
+                        history.push('/');
+                    }, 3000)
+                })
+                .catch(() => {
+                    setMsg('Please follow instructions for creating an account')
+
+                    setTimeout(() => {
+                        setMsg(null)
+                    }, 2000)
+                })
         }
+*/
     }
 }
 
