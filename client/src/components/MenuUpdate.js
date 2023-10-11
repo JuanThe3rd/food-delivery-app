@@ -21,7 +21,7 @@ function MenuUpdate(){
     return (
         <div>
             <RestaurantNavbar user_login={user_login} />
-            <h1 className='page-title' >Update Menu Page</h1>
+            <h1 className='page-title' >Menu</h1>
 
             <div className='update-menu-container' >
                 {items.map(item => (
