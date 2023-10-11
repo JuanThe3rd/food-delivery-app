@@ -5,6 +5,8 @@
   --text: hsla(0, 0%, 100%, 0.88);
   background-color: rgb(72, 231, 255);
   font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-image: url("https://i.etsystatic.com/10868806/r/il/6e5775/4079544308/il_fullxfull.4079544308_c7w1.jpg");
+  background-size: cover;
 }
 
 .nav-container {
@@ -15,6 +17,8 @@
   padding: 1rem;
   background-color: rgb(72, 231, 255);
 }
+
+/*background-color: rgb(72, 231, 255)*/
 
 .nav-link {
   align-items: center;
