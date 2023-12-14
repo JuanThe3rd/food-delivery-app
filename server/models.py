@@ -19,15 +19,6 @@ class User(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<User name: {self.name} >'
-    
-    @validates('name', 'profile_pic')
-    def validates_login(self, key, value):
-        if key == 'name':
-            if len(value) < 2:
-                raise ValueError('Name must be at least 2 characters long')
-        elif key == 'profile_pic':
-            if len(value) < 10 or value[0:4] != 'http':
-                raise ValueError('Profile_pic must be an image URL address')
 
 
 class PastOrder(db.Model, SerializerMixin):

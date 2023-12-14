@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 function Register() {
     const history = useHistory();
 
+    const [errorMsg, setErrorMsg] = useState(null);
     const [accountType, setAccountType] = useState();
     const [accountData, setAccountData] = useState({});
     const [newAccountID, setNewAccountID] = useState();
@@ -18,60 +19,90 @@ function Register() {
             }
             <h1 className='login-title' >Register</h1>
 
-            <div className='login-form' >
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <input className='login-input' placeholder='Username' onChange={handleChange} name='username' />
-                    <br />
-                    <input className='login-input' placeholder='Password' onChange={handleChange} name='password' type='password' />
-                    <br />
-                    <label>Account Type: </label>
-                    <select className='login-input' onChange={(e) => setAccountType(e.target.value)}>
-                        <option value='choosing'>-- Select --</option>
-                        <option value='user'>User</option>
-                        <option value='restaurant'>Restaurant</option>
-                    </select>
-                    <br />
+            <div className='register-content'>
+                <div className='register-form' >
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <div className='input-group'>
+                            <input className='login-input' required type='text' id='username' name='username' onChange={handleChange} value={accountData.username}/>
+                            <label className='login-label' for='username'>Username</label>
+                        </div>
 
-                    {accountType === 'user' && 
-                        <div>
-                            <input className='login-input' placeholder='Firstname' name='firstname' onChange={handleChange} />
-                            <br/ >
-                            <input className='login-input' placeholder='Profile Picture URL' name='profile_pic' onChange={handleChange} />
+                        <div className='input-group'>
+                            <input className='login-input' required type='password' id='password' name='password' onChange={handleChange} value={accountData.password}/>
+                            <label className='login-label' for='password'>Password</label>
+                        </div>
+
+                        <div className='input-group'>
+                            <input className='login-input' required type='password' id='confirm-password' name='confirm-password' onChange={handleChange} value={accountData['confirm-password']}/>
+                            <label className='login-label' for='confirm-password'>Confirm Password</label>
+                        </div>
+
+                        <div className='register-select'>
+                            <label>Account Type: </label>
+                            <select onChange={(e) => setAccountType(e.target.value)}>
+                                <option value='choosing'>-- Select --</option>
+                                <option value='user'>User</option>
+                                <option value='restaurant'>Restaurant</option>
+                            </select>
                             <br />
                         </div>
-                    }
 
-                    {accountType === 'restaurant' &&
-                        <div>
-                            <input className='login-input' placeholder='Restaurant Name' onChange={handleChange} name='name' value={accountData.name} />
-                            <br />
-                            <input className='login-input' placeholder='Image URL' onChange={handleChange} name='image' value={accountData.image} />
-                            <br />
-                            <input className='login-input' placeholder='Owner Name' onChange={handleChange} name='owner' value={accountData.owner} />
-                            <br />
-                        </div>
-                    }
+                        {accountType === 'user' && 
+                            <div>
+                                <div className='input-group'>
+                                    <input className='login-input' required type='text' id='firstname' name='firstname' onChange={handleChange} value={accountData.firstname}/>
+                                    <label className='login-label' for='firstname'>First Name</label>
+                                </div>
 
-                    <input className='login-submit-btn' type='submit' />
-                </form>
-            </div>
+                                <div className='input-group'>
+                                    <input className='login-input' required type='text' id='profile_pic' name='profile_pic' onChange={handleChange} value={accountData['profile_pic']}/>
+                                    <label className='login-label' for='profile_pic'>Profile Picture URL</label>
+                                </div>
+                            </div>
+                        }
 
-            <div className='login-form' >
-                <p>Username must be at least 7 characters long.</p>
-                <p>Password must be at least 5 characters long.</p>
+                        {accountType === 'restaurant' &&
+                            <div>
+                                <div className='input-group'>
+                                    <input className='login-input' required type='text' id='name' name='name' onChange={handleChange} value={accountData.name}/>
+                                    <label className='login-label' for='name'>Restaurant Name</label>
+                                </div>
 
-                {accountType === 'user' &&
-                    <div>
-                        <p>Firstname must be at least 2 characters long.</p>
-                        <p>Profile picture must be an Image URL address.</p>
-                    </div>
-                }
+                                <div className='input-group'>
+                                    <input className='login-input' required type='text' id='image' name='image' onChange={handleChange} value={accountData.image}/>
+                                    <label className='login-label' for='image'>Restaurant Image URL</label>
+                                </div>
 
-                {accountType === 'restaurant' &&
-                    <div>
-                        <p>Restaurant name must be at least 2 characters long.</p>
-                        <p>Restaurant image must be an Image URL address.</p>
-                        <p>Owner name must be at least 2 characters long.</p>
+                                <div className='input-group'>
+                                    <input className='login-input' required type='text' id='owner' name='owner' onChange={handleChange} value={accountData.owner}/>
+                                    <label className='login-label' for='owner'>Owner Name</label>
+                                </div>
+                            </div>
+                        }
+
+                        <input className='login-submit-btn' type='submit' />
+                    </form>
+                </div>
+                
+                {errorMsg &&
+                    <div className='verifications-form' >
+                        <p>Username must be at least 7 characters long.</p>
+                        <p>Password must be at least 5 characters long.</p>
+
+                        {accountType === 'user' &&
+                            <div>
+                                <p>Firstname must be at least 2 characters long.</p>
+                                <p>Profile picture must be an Image URL address.</p>
+                            </div>
+                        }
+
+                        {accountType === 'restaurant' &&
+                            <div>
+                                <p>Restaurant name must be at least 2 characters long.</p>
+                                <p>Restaurant image must be an Image URL address.</p>
+                                <p>Owner name must be at least 2 characters long.</p>
+                            </div>
+                        }
                     </div>
                 }
             </div>
@@ -85,99 +116,91 @@ function Register() {
     function handleSubmit(e){
         e.preventDefault();
 
-        console.log(accountData)
-/*
-        if (accountType === 'user'){
-            fetch('/users', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: accountData.firstname,
-                    profile_pic: accountData.profile_pic
-                })
-            })
-                .then(res => res.json())
-                .then(account => setNewAccountID(account.id))
-                .catch(() => {
-                    setMsg('Please follow instructions for creating an account')
+        if (accountData.password === accountData['confirm-password']){
+            if (accountType === 'user'){
+                if (accountData.firstname.length > 1){
+                    fetch(`${accountData.profile_pic}`)
+                        .then(res => {
+                            if (res.status !== 404){
+                                fetch('/users', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({
+                                        name: accountData.firstname,
+                                        profile_pic: accountData.profile_pic
+                                    })
+                                })
+                                    .then(res => res.json())
+                                    .then(new_account => {
+                                        fetch('/logins', {
+                                            method: 'POST',
+                                            headers: {'Content-Type': 'application/json'},
+                                            body: JSON.stringify({
+                                                username: accountData.username,
+                                                password: accountData.password,
+                                                user_type: accountType,
+                                                user_id: new_account.id,
+                                                restaurant_id: null
+                                            })
+                                        })
+                                            .then(res => res.json())
+                                            .then(newLogin => {
+                                                setMsg('Account Successfully Created! Redirecting...');
+                                                setTimeout(() => {
+                                                    history.push('/');
+                                                }, 3000)
+                                            })
+                                    })
+                            }
+                        });
+                }
+            } else if (accountType ==='restaurant'){
+                if (accountData.owner.length > 1){
+                    fetch(`${accountData.image}`)
+                        .then(res => {
+                            if (res.status !== 404){
+                                fetch('/restaurants', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({
+                                        name: accountData.name,
+                                        image: accountData.image,
+                                        owner: accountData.owner
+                                    })
+                                })
+                                    .then(res => res.json())
+                                    .then(new_account => {
+                                        fetch('/logins', {
+                                            method: 'POST',
+                                            headers: {'Content-Type': 'application/json'},
+                                            body: JSON.stringify({
+                                                username: accountData.username,
+                                                password: accountData.password,
+                                                user_type: 'restaurant',
+                                                restaurant_id: new_account.id,
+                                                user_id: null
+                                            })
+                                        })
+                                            .then(res => res.json())
+                                            .then(newLogin => {
+                                                setMsg('Account Successfully Created! Redirecting...');
+                                                setTimeout(() => {
+                                                    history.push('/');
+                                                }, 3000)
+                                            })
+                                    })
+                            }
+                        });
+                }
+            }
+            setErrorMsg(null);
+        } else{
+            setMsg('Passwords do not match')
 
-                    setTimeout(() => {
-                        setMsg(null)
-                    }, 2000)
-                })
-            
-            fetch('/logins', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    username: accountData.username,
-                    password: accountData.password,
-                    user_type: 'user',
-                    user_id: newAccountID,
-                    restaurant_id: null
-                })
-            })
-                .then(res => res.json())
-                .then(newLogin => {
-                    setMsg('Account Successfully Created! Redirecting...');
-                    setTimeout(() => {
-                        history.push('/');
-                    }, 3000)
-                })
-                .catch(() => {
-                    setMsg('Please follow instructions for creating an account')
-
-                    setTimeout(() => {
-                        setMsg(null)
-                    }, 2000)
-                })
-        } else if (accountType ==='restaurant'){
-            fetch('/restaurants', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: accountData.name,
-                    image: accountData.image,
-                    owner: accountData.owner
-                })
-            })
-                .then(res => res.json())
-                .then(account => setNewAccountID(account.id))
-                .catch(() => {
-                    setMsg('Please follow instructions for creating an account')
-
-                    setTimeout(() => {
-                        setMsg(null)
-                    }, 2000)
-                })
-            
-            fetch('/logins', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    username: accountData.username,
-                    password: accountData.password,
-                    user_type: 'restaurant',
-                    restaurant_id: newAccountID,
-                    user_id: null
-                })
-            })
-                .then(res => res.json())
-                .then(newLogin => {
-                    setMsg('Account Successfully Created! Redirecting...');
-                    setTimeout(() => {
-                        history.push('/');
-                    }, 3000)
-                })
-                .catch(() => {
-                    setMsg('Please follow instructions for creating an account')
-
-                    setTimeout(() => {
-                        setMsg(null)
-                    }, 2000)
-                })
+            setTimeout(() => {
+                setMsg(null);
+            }, 3000)
         }
-*/
     }
 }
 

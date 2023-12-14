@@ -18,6 +18,8 @@ function Home() {
             .then(setRestaurants)
     }, [])
 
+    console.log(user_login);
+
     return (
         <div>
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />

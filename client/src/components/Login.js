@@ -17,18 +17,26 @@ function Login() {
     return (
         <div className='login-page' >
             {errorMsg && <div className='notification' >{errorMsg}</div>}
-            <h1 className='login-title' >Sign-In!</h1>
+            <h1 className='login-title' >Underwater Eats</h1>
             <div className='login-form' >
+                <h3 className='login' >Sign-In!</h3>
+
                 <form onSubmit={handleSubmit} >
-                    <input className='login-input' placeholder='Username' name='username' onChange={handleChange} value={loginData.username} />
-                    <br />
-                    <input className='login-input' placeholder='Password' name='password' onChange={handleChange} value={loginData.password} type='password' />
-                    <br />
-                    <input className='login-submit-btn' type='submit' value='Log In' />
+                    <div className='input-group'>
+                        <input className='login-input' required type='text' id='username' name='username' onChange={handleChange} value={loginData.username}/>
+                        <label className='login-label' for='username'>Username</label>
+                    </div>
+
+                    <div className='input-group'>
+                        <input className='login-input' required type='password' id='password' name='password' onChange={handleChange} value={loginData.password}/>
+                        <label className='login-label' for='username'>Password</label>
+                    </div>
+
+                    <input className='login-submit-btn' type='submit' value='Log-In' />
                 </form>
 
-                <label>Don't have an account?</label>
-                <button onClick={() => history.push('/register')} >Register</button>
+                <label className='register-info' >Don't have an account? </label>
+                <button className='register-btn' onClick={() => history.push('/register')} >Register</button>
             </div>
         </div>
     );
