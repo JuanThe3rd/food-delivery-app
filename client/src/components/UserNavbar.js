@@ -6,7 +6,7 @@ function UserNavbar({ user_login, cart, restaurant }){
 
     return (
         <div className='nav-container' >
-            <button className='nav-link' onClick={(e) => handleClick(e)} name='' >Log-Out</button>
+            <button className='nav-link' onClick={(e) => handleClick(e)} name='/' >Log-Out</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='checkout' >Cart</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='account' >Account</button>
             <button className='nav-link' onClick={(e) => handleClick(e)} name='home' >Home</button>
@@ -14,14 +14,10 @@ function UserNavbar({ user_login, cart, restaurant }){
     )
 
     function handleClick(e){
-        if (e.target.name !== ''){
-            history.push({
-                pathname: `/${e.target.name}`,
-                state: [user_login, cart, restaurant]
-            })
-        } else {
-            history.push('/')
-        }
+        history.push({
+            pathname: `/${e.target.name}`,
+            state: [user_login, cart, restaurant]
+        })
     }
 }
 

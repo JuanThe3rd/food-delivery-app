@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import UserNavbar from './UserNavbar'
 import RestaurantNavbar from './RestaurantNavbar'
 
 function Account() {
+    const history = useHistory();
     const location = useLocation();
     const user_login = location.state[0];
     const cart = location.state[1];
@@ -130,8 +131,6 @@ function Account() {
         }
     }, []);
 
-    console.log(pastOrders);
-
     return (
         <div>
             { user_login.user_type === 'user' &&
@@ -151,7 +150,7 @@ function Account() {
                                     <p>Total: ${order.total} • {order.total_items} items</p>
                                     <div id='' className='past-order-btns-container'>
                                         <button className='past-order-btn'>View Receipt</button>
-                                        <button className='past-order-btn'>Reorder</button>
+                                        <button className='past-order-btn' onClick={() => handleReorder(order)}>Reorder</button>
                                     </div>
                                     <div className={pastOrderClasses[`${order.id}`][0]}>
                                         {order.items.map((item, index) => (
@@ -212,6 +211,21 @@ function Account() {
             }
         </div>
     );
+
+    function handleReorder(order){
+        const cart = [];
+
+        console.log(order);
+        for (let i = 0; i < order.items.length; i++){
+            cart.push(order.items[i]);
+            cart[i].quantity = parseInt(order.quantities[i]);
+        }
+
+        history.push({
+            pathname: '/checkout',
+            state: [user_login, cart, cart[0].restaurant]
+        })
+    }
 
     function handleDropdownClick(id){
         for (const key in pastOrderClasses){
