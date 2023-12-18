@@ -6,9 +6,8 @@ function RestaurantCard({ restaurant, user_login, cart }){
 
     return (
         <div className='restaurant-card' >
-            <h2>{restaurant.name}</h2>
             <img onClick={handleClick} alt={`${restaurant.name}_img`} src={restaurant.image} className='restaurant-card-img' />
-            <br />
+            <h2>{restaurant.name}</h2>
             <button onClick={addReview} className='add-review-btn' >Add Review</button>
         </div>
     )

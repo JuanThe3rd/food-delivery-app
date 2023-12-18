@@ -10,8 +10,6 @@ function Register() {
     const [newAccountID, setNewAccountID] = useState();
     const [msg, setMsg] = useState();
 
-    console.log(errorMsg);
-
     return (
         <div className='login-page' >
             {msg && 

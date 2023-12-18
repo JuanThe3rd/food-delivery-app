@@ -16,12 +16,10 @@ function Home() {
         fetch('/restaurants')
             .then(res => res.json())
             .then(setRestaurants)
-    }, [])
-
-    console.log(user_login);
+    }, []);
 
     return (
-        <div>
+        <div className='home-page'>
             <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
             <h1 className='page-title' >Welcome {user_login.user.name}!</h1>
 
