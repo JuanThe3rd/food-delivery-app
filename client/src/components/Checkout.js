@@ -7,12 +7,16 @@ function Checkout() {
     const location = useLocation();
     const history = useHistory();
     const user_login = location.state[0];
-    const [cart, setCart] = useState(location.state[1]);
     const restaurant = location.state[2];
+
     const [msg, setMsg] = useState();
     const [reviews, setReviews] = useState([]);
-    let total = 0;
 
+    const [cart, setCart] = useState(location.state[1]);
+    const [reviewClasses, setReviewClasses] = useState(['add-review-container', 'https://static.thenounproject.com/png/4984281-200.png', 'review-drop-content hide']);
+    const [reviewContent, setReviewContent] = useState(null);
+
+    let total = 0;
     for(let i = 0; i < cart.length; i++){
         total += cart[i].price * cart[i].quantity;
     }
@@ -24,7 +28,7 @@ function Checkout() {
                 const temp_reviews = [];
 
                 for(let i = 0; i < reviews.length; i++){
-                    if (reviews[i].restaurant_id === restaurant.id){
+                    if (reviews[i].restaurant_id === restaurant.id && reviews[i].review_type === 'restaurant'){
                         temp_reviews.push(reviews[i]);
                     }
                 }
@@ -47,15 +51,24 @@ function Checkout() {
                 <div className='cart-restaurant-details'>
                     <h1>{restaurant.name}</h1>
                     <img className='cart-restaurant-img' src={restaurant.image} alt={`${restaurant.name}_img`} />
-                    <h3>Reviews:</h3>
-                    {reviews.map(review => (
-                        <div>
-                            <h4>{review.user.name}:</h4>
-                            <p>{review.content}</p>
+                    <div className='cart-restaurant-review-sec'>
+                        <h3>Reviews</h3>
+                        <p>({reviews.length})</p>
+                        {reviews.map(review => (
+                            <div className='single-review-container'>
+                                <h4>{review.user.name}</h4>
+                                <p>{review.content}</p>
+                            </div>
+                        ))}
+                        <div className={reviewClasses[0]}>
+                            <img className='review-dropdown-icon' src={reviewClasses[1]} onClick={handleDropClick} alt='dropdown-icon'/>
+                            <h1>Add a Review</h1>
+                            <div className={reviewClasses[2]}>
+                                <textarea className='review-comment-textarea' placeholder='Review' onChange={handleChange} value={reviewContent}></textarea>
+                                <button className='add-review-btn' onClick={addReview}>Add Review</button>
+                            </div>
                         </div>
-                    ))
-
-                    }
+                    </div>
                 </div>
 
                 <div className='cart-details'>
@@ -80,6 +93,41 @@ function Checkout() {
             </div>
         </div>
     );
+
+    function handleChange(e){
+        setReviewContent(e.target.value);
+    }
+
+    function addReview(){
+        if (reviewContent !== null && reviewContent !== ' ' && reviewContent !== ''){
+            fetch('/reviews',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: reviewContent,
+                    review_type: 'restaurant',
+                    user_id: user_login.user.id,
+                    restaurant_id: restaurant.id
+                })
+            })
+                .then(res => res.json())
+                .then(newReview => {
+                    setReviews([...reviews, newReview]);
+                    setReviewContent('');
+                    setReviewClasses(['add-review-container', 'https://static.thenounproject.com/png/4984281-200.png', 'review-drop-content hide'])
+                });
+        }
+    }
+
+    function handleDropClick(){
+        if (reviewClasses[0] === 'add-review-container'){
+            setReviewClasses(['add-review-container expanded', 'https://static.thenounproject.com/png/4984281-200.png', 'review-drop-content']);
+        } else {
+            setReviewClasses(['add-review-container', 'https://cdn.icon-icons.com/icons2/2036/PNG/512/up_arrow_circle_icon_124244.png', 'review-drop-content hide']);
+        }
+    }
 
     function incrementQuantity(action, item){
         let itemToChangePos = null;

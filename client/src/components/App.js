@@ -6,7 +6,6 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Restaurant from './Restaurant';
-import Review from './Review';
 import MenuUpdate from './MenuUpdate'
 
 
@@ -30,9 +29,6 @@ function App() {
       </Route>
       <Route path='/checkout'>
         {<Checkout />}
-      </Route>
-      <Route path='/review'>
-        {<Review />}
       </Route>
       <Route path='/menu'>
         {<MenuUpdate />}

@@ -14,10 +14,16 @@ function UserNavbar({ user_login, cart, restaurant }){
     )
 
     function handleClick(e){
-        history.push({
-            pathname: `/${e.target.name}`,
-            state: [user_login, cart, restaurant]
-        })
+        if (e.target.name === '/'){
+            history.push({
+                pathname: '/'
+            })
+        } else {
+            history.push({
+                pathname: `/${e.target.name}`,
+                state: [user_login, cart, restaurant]
+            })
+        }
     }
 }
 

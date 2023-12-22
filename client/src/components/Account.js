@@ -13,14 +13,15 @@ function Account() {
     const [restaurant, setRestaurant] = useState();
     const [pastOrders, setPastOrders] = useState([]);
     const [reviews, setReviews] = useState([]);
-    const [items, setItems] = useState([]);
 
+    const [modal, setModal] = useState(null);
+    const [newReview, setNewReview] = useState(null);
+    const [customer, setCustomer] = useState(null);
     const [pastOrderClasses, setPastOrderClasses] = useState({});
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         if(user_login.user_type === 'restaurant'){
-            setReviews(user_login.restaurant.reviews.filter(review => review.review_type === 'restaurant'));
-
             fetch('/pastorders')
                 .then(res => res.json())
                 .then(allOrders => {
@@ -35,8 +36,10 @@ function Account() {
                                     const itemIDs = temp_past_orders[i].menuItemIDs.split('-');
                                     const quantities = temp_past_orders[i].quantities.split('-');
                                     const total = Math.round(temp_past_orders[i].total * 100) / 100;
+                                    const id = i + 1;
+                                    let count = 0;
                                     const temp_items = [];
-                                    let restaurant = {};
+                                    let user = {};
 
                                     for(let j = 0; j < itemIDs.length; j++){
                                         for(let k = 0; k < menu.length; k++){
@@ -44,31 +47,55 @@ function Account() {
                                                 temp_items.push(menu[k]);
                                             }
                                         }
-                                    }
+                                    };
 
-                                    fetch('/restaurants')
+                                    fetch('/users')
                                         .then(res => res.json())
-                                        .then(restaurants => {
-                                            for(let i = 0; i < restaurants.length; i++){
-                                                if (restaurants[i].id === temp_past_orders[i].restaurant_id){
-                                                    restaurant = restaurants[i];
+                                        .then(users => {
+                                            for(let j = 0; j < users.length; j++){
+                                                if (users[j].id === temp_past_orders[i].user_id){
+                                                    user = users[j];
                                                 }
                                             }
 
-                                            const temp_order = {'items': temp_items, 'quantities': quantities, 'restaurant': restaurant, 'total': total};
+                                            for(let j = 0; j < quantities.length; j++){
+                                                count += parseInt(quantities[j]);
+                                            }
+
+                                            const temp_order = {'id': id, 'items': temp_items, 'quantities': quantities, 'total_items': count, 'user': user, 'total': total};
                                             temp_orders.push(temp_order);
 
                                             if (temp_orders.length === temp_past_orders.length){
+                                                const temp_classes = {};
+
+                                                for (let k = 0; k < temp_orders.length; k++){
+                                                    temp_classes[temp_orders[k].id] = ['past-order-details hide', 'https://static.thenounproject.com/png/4984281-200.png', 'past-order-container'];
+                                                }
+
+                                                setPastOrderClasses(temp_classes);
                                                 setPastOrders(temp_orders);
                                             }
                                         })
                                 }
+
+                                fetch('/reviews')
+                                    .then(res => res.json())
+                                    .then(temp_reviews => {
+                                        const restaurant_reviews = []
+
+                                        for(let i = 0; i < temp_reviews.length; i++){
+                                            if (temp_reviews[i].restaurant_id === user_login.restaurant.id && temp_reviews[i].review_type === 'restaurant'){
+                                                restaurant_reviews.push(temp_reviews[i]);
+                                            }
+                                        }
+
+                                        setReviews(restaurant_reviews);
+                                    })
                             })
                     }
                 })
         } else if (user_login.user_type === 'user'){
             setRestaurant(location.state[2]);
-            setReviews(user_login.user.reviews.filter(review => review.review_type === 'customer'));
 
             fetch('/pastorders')
                 .then(res => res.json())
@@ -125,6 +152,20 @@ function Account() {
                                             }
                                         })
                                 }
+
+                                fetch('/reviews')
+                                    .then(res => res.json())
+                                    .then(temp_reviews => {
+                                        const customer_reviews = [];
+
+                                        for(let i = 0; i < temp_reviews.length; i++){
+                                            if (temp_reviews[i].user_id === user_login.user.id && temp_reviews[i].review_type === 'customer'){
+                                                customer_reviews.push(temp_reviews[i]);
+                                            }
+                                        }
+
+                                        setReviews(customer_reviews);
+                                    })
                             })
                     }
                 })
@@ -133,23 +174,39 @@ function Account() {
 
     return (
         <div>
+            {errorMsg && <div className='notification'>{errorMsg}</div>}
+
             { user_login.user_type === 'user' &&
                 <div>
                     <UserNavbar user_login={user_login} cart={cart} restaurant={restaurant} />
                     <h1 className='page-title' >Account</h1>
 
                     <div className='account-page-main-content'>
-                        <img className='account-img' src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`}/>
-                        
+                        <div className='account-details-container'>
+                            <img className='account-img' src={user_login.user.profile_pic} alt={`${user_login.user.name}_img`}/>
+                            <h2 className='account-name-title'>{user_login.user.name}</h2>
+                            <div className='cart-restaurant-review-sec'>
+                                <h3>Reviews</h3>
+                                <p>({reviews.length})</p>
+                                {reviews.map(review => (
+                                    <div className='single-review-container'>
+                                        <h4>{review.restaurant.name}</h4>
+                                        <p>{review.content}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className='past-orders-container' >
                             <h2>Past Orders</h2>
+                            <p>({pastOrders.length})</p>
                             {pastOrders.map(order => (
                                 <div className={pastOrderClasses[`${order.id}`][2]} key={order.id} >
                                     <img className='dropdown-icon' src={pastOrderClasses[`${order.id}`][1]} onClick={() => handleDropdownClick(order.id)} alt='dropdown-icon'/>
                                     <h3>{order.restaurant.name}</h3>
                                     <p>Total: ${order.total} • {order.total_items} items</p>
                                     <div id='' className='past-order-btns-container'>
-                                        <button className='past-order-btn'>View Receipt</button>
+                                        <button className='past-order-btn' onClick={() => handleDropdownClick(order.id)}>View Receipt</button>
                                         <button className='past-order-btn' onClick={() => handleReorder(order)}>Reorder</button>
                                     </div>
                                     <div className={pastOrderClasses[`${order.id}`][0]}>
@@ -165,52 +222,101 @@ function Account() {
                             ))}
                         </div>
                     </div>
-
-                    <h2 className='reviews-title' >Reviews:</h2>
-                    <div className='reviews-container' >
-                        {reviews.map((review) => (
-                            <div className='review-card' key={review.id} >
-                                <h3>{review.restaurant.name}</h3>
-                                <p>{review.content}</p>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             }
 
             { user_login.user_type === 'restaurant' &&
                 <div>
+                    {modal &&
+                        <div className='add-customer-review-modal-container'>
+                            <div className='review-modal-content'>
+                                <span className='close-review-modal' onClick={() => setModal(null)}>&times;</span>
+                                <h2>Leave a Review</h2>
+                                <textarea onChange={handleChange} placeholder='Review' value={newReview}></textarea>
+                                <button onClick={addCustomerReview}>Submit</button>
+                            </div>
+                        </div>
+                    }
+
                     <RestaurantNavbar user_login={user_login} />
                     <h1 className='page-title' >Account</h1>
                     
                     <div className='account-page-main-content'>
-                        <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='account-img' />
+                        <div className='account-details-container'>
+                            <img src={user_login.restaurant.image} alt={`${user_login.restaurant.name}_img`} className='restaurant-account-img' />
+                            <h2 className='account-name-title'>{user_login.restaurant.name}</h2>
+                            <div className='cart-restaurant-review-sec'>
+                                <h3>Reviews</h3>
+                                <p>({reviews.length})</p>
+                                {reviews.map(review => (
+                                    <div className='single-review-container'>
+                                        <h4>{review.user.name}</h4>
+                                        <p>{review.content}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
                         <div className='past-orders-container' >
-                            <h2 className='reviews-title' >Past Orders:</h2>
-                            <ol>
-                                {pastOrders.map(order => (
-                                    <li key={order.id} >
-                                        <p>Total: {order.total}</p>
-                                    </li>
-                                ))}
-                            </ol>
-                        </div>
-                    </div>
+                            <h2>Past Orders</h2>
+                            <p>({pastOrders.length})</p>
 
-                    <h2 className='reviews-title' >Reviews:</h2>
-                    <div className='reviews-container' >
-                        {reviews.map((review) => (
-                            <div className='review-card' key={review.id} >
-                                <h3>{review.user.name}</h3>
-                                <p>{review.content}</p>
-                            </div>
-                        ))}
+                            {pastOrders.map(order => (
+                                <div className={pastOrderClasses[`${order.id}`][2]} key={order.id}>
+                                    <img className='dropdown-icon' src={pastOrderClasses[`${order.id}`][1]} onClick={() => handleDropdownClick(order.id)} alt='dropdown-icon'/>
+                                    <button className='account-review-modal-btn' onClick={() => {setModal(true); setCustomer(order.user)}}>Leave a Review</button>
+                                    <h3>{order.user.name}</h3>
+                                    <p>Total: ${order.total} • {order.total_items} items</p>
+                                    <div id='' className='past-order-btns-container'>
+                                        <button className='past-order-btn' onClick={() => handleDropdownClick(order.id)}>View Receipt</button>
+                                    </div>
+                                    <div className={pastOrderClasses[`${order.id}`][0]}>
+                                        {order.items.map((item, index) => (
+                                            <div className='past-order-item'>
+                                                <img src={item.image} className='past-order-item-img' alt={`${item.item}_img`}/>
+                                                <h3>{item.item}</h3>
+                                                <p>${item.price} (x{order.quantities[index]})</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             }
         </div>
     );
+
+    function handleChange(e){
+        setNewReview(e.target.value);
+    }
+
+    function addCustomerReview(){
+        if (newReview !== null && newReview !== ' ' && newReview !== ''){
+            fetch('/reviews', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    content: newReview,
+                    review_type: 'customer',
+                    user_id: customer.id,
+                    restaurant_id: user_login.restaurant.id
+                })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    setReviews([...reviews, res]);
+                    setNewReview(null);
+                    setModal(null);
+                    setErrorMsg('Review Submitted!')
+
+                    setTimeout(() => {
+                        setErrorMsg(null);
+                    }, 3000)
+                })
+        }
+    }
 
     function handleReorder(order){
         const cart = [];

@@ -60,29 +60,14 @@ function Restaurant() {
                         <div key={item.id} className='menu-item-container' >
                             <img src={item.image} alt={`${item.item}_img`} className='menu-item-img' />
                             <h3>{item.item}</h3>
-                            <p>Price: {item.price}</p>
+                            <p>Price: ${item.price}</p>
                             <button className='add-to-cart-btn' onClick={() => handleClick(item)} >Add to cart</button>
-                        </div>
-                    ))}
-                </div>
-
-                <h3 className='reviews-title' >Reviews:</h3>
-                <div className='reviews-container' >
-                    {reviews?.map(review => (
-                        <div key={review.id} className='review-card' >
-                            <p>{review.user.name}:</p>
-                            <p>{review.content}</p>
                         </div>
                     ))}
                 </div>
             </div>
         </div>
     )
-
-    function makeNewCart(){
-        setCart(newCartItem);
-        setModal(null);
-    }
 
     function makeNewCart(){
         setCart(newCartItem);

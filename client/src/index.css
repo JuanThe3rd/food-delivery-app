@@ -178,7 +178,7 @@
 /* <---------- Register Page ----------> */
 .register-content {
   display: grid;
-  grid-template-columns: 100%;
+  grid-template-columns: 60% 20%;
   margin-bottom: 5rem;
   margin-top: 5rem;
 }
@@ -191,7 +191,6 @@
   margin-left: 10%;
   padding: 1rem;
   text-align: center;
-  width: 60%;
 }
 
 .register-select {
@@ -204,13 +203,13 @@
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   color: rgb(255, 0, 0);
-  min-height: 175px;
+  height: auto;
   max-height: 225px;
-  margin-left: 75%;
-  margin-top: -29%;
+  margin-left: 10%;
+  margin-top: 50%;
   padding: 1rem;
   text-align: center;
-  width: 20%;
+  width: 100%;
 }
 
 
@@ -305,6 +304,7 @@
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
+  height: 360px;
   transition: all 300ms;
 }
 
@@ -324,29 +324,15 @@
 }
 
 .restaurant-card-img~h2 {
-  margin-top: 0rem;
+  margin-top: 0.5rem;
   padding-left: 1rem;
   text-align: left;
 }
 
-.add-review-btn {
-  background-color: white;
-  border: 0.5px solid #2196f3;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  cursor: pointer;
+.restaurant-card-img~p {
   float: right;
-  height: 1.5rem;
-  margin-bottom: 1rem;
   margin-right: 1rem;
-  transition: all 300ms;
-  width: 100px;
-}
-
-.add-review-btn:hover {
-  background-color: rgb(184, 223, 255);
-  transform: scale(1.05);
-  transition: all 300ms;
+  transform: translateY(-3.5rem);
 }
 
 
@@ -492,44 +478,165 @@
 
 /* <---------- Restaurant Page (Restaurant) ----------> */
 .update-menu-container {
-  text-align: center;
-  padding: 2rem;
+  column-gap: 1%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: auto;
-  grid-gap: 1rem;
+  grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+  margin-top: 5rem;
+  padding: 1%;
+  row-gap: 1rem;
 }
 
 .update-item-container {
-  border: 1px solid black;
-  padding: 2rem;
-  height: 25rem;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 300px;
 }
 
 .update-menu-img {
-  width: 70%;
-  height: 60%;
-  justify-self: center;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.update-menu-img~h3 {
+  margin-left: 1rem;
+}
+
+.update-menu-img~p {
+  margin-left: 1rem;
 }
 
 .remove-item-btn {
-  width: 90%;
-  height: 8%;
+  background-color: white;
+  border: 1px solid #2196f3;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  float: right;
+  height: 1.75rem;
+  margin-right: 1rem;
+  transform: translateY(-2.5rem);
+  transition: all 300ms;
+  width: 80px;
+}
+
+.remove-item-btn:hover {
+  background-color: rgb(184, 223, 255);
+  transform: translateY(-2.5rem);
+  transition: all 300ms;
 }
 
 .update-item-btn {
-  width: 90%;
-  height: 8%;
-}
-
-.add-menu-item-form {
-  border: 1px solid black;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding-bottom: 1rem;
+  border: 1px solid #2196f3;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  float: right;
+  height: 1.75rem;
+  margin-right: 1rem;
+  transform: translateY(-2.5rem);
+  width: 80px;
+}
+
+.update-item-btn:hover {
+  background-color: rgb(184, 223, 255);
+  transform: translateY(-2.5rem);
+  transition: all 300ms;
+}
+
+.add-item-title {
+  text-align: center;
+}
+
+.add-item-input-group{
+  font-size: 1rem;
+  margin-left: 10%;
+  position: relative;
+  --primary: #2196f3;
+  width: 80%;
+}
+
+.add-item-input{
+  all: unset;
+  border-bottom: 1px solid black;
+  color: #000000;
+  height: 1rem;
+  margin-bottom: 1.75rem;
+  margin-top: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: left;
+  transition: 200ms
+    cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.add-item-input:focus {
+  border-bottom: 1px solid
+    var(--primary);
+}
+
+.add-item-label{
+  color: rgb(136,137,142);
+  left: 1%;
+  margin-top: 2rem;
+  pointer-events: none;
+  position: absolute;
+  top: -1.6rem;
+  transition: 200ms
+    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.add-item-input:is(:focus, :valid) ~ label {
+  color: var(--primary);
+  padding-inline: 0.3rem;
+  transform:
+    translateY(-100%)
+    scale(0.9);
+}
+
+.select-input {
+  border-radius: 10px;
+  float: left;
+  height: 2rem;
+  margin-left: 20%;
+  text-align: center;
+  width: 25%;
+}
+
+.add-item-btn {
+  background-color: white;
+  border: 1px solid #2196f3;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  height: 2rem;
+  margin-left: 10%;
+  transition: all 300ms;
+  width: 25%;
+}
+
+.add-item-btn:hover {
+  background-color: rgb(184, 223, 255);
+  transition: all 300ms;
+}
+
+.update-modal-content {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border-radius: 15px;
+  height: 18rem;
+  margin: 16% auto;
+  padding: 1rem;
+  width: 35%;
+}
+
+.update-modal-title {
+  text-align: center;
 }
 
 
@@ -541,27 +648,48 @@
 
 
 
-/* <---------- Account Page ----------> */
+/* <---------- Account Page (User) ----------> */
 .account-page-main-content {
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 40% 60%;
+  margin-bottom: 5rem;
   margin-top: 5rem;
 }
 
-.account-img {
+.account-details-container {
+  background-color: white;
+  border: 1px solid black;
   border-radius: 15px;
-  height: 375px;
   margin-left: 50%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transform: translateX(-50%)
+            translateX(-0.5rem);
+  width: 80%;
+}
+
+.account-img {
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 15px;
+  height: 325px;
+  margin-left: 50%;
+  margin-top: 2rem;
   transform: translateX(-50%);
-  width: 375px;
+  width: 325px;
+}
+
+.account-name-title {
+  margin-top: 1rem;
+  text-align: center;
 }
 
 .past-orders-container {
   background-color: white;
   border: 1px solid black;
   border-radius: 15px;
-  max-height: 800px;
+  max-height: 700px;
   margin-left: 50%;
+  margin-top: 4rem;
   overflow-y: auto;
   padding: 1rem;
   padding-bottom: 0;
@@ -571,12 +699,19 @@
 }
 
 .past-orders-container::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
 }
 
 .past-orders-container h2{
   font-size: 2rem;
   margin-bottom: 2rem;
+}
+
+.past-orders-container h2+p{
+  font-size: 1.25rem;
+  right: 1.5rem;
+  position: absolute;
+  top: 0.8rem;
 }
 
 .past-order-container {
@@ -612,7 +747,7 @@
 }
 
 .dropdown-icon:hover {
-  background-color: rgb(136, 136, 136);
+  background-color: rgb(177, 177, 177);
   transition: all 300ms;
 }
 
@@ -625,7 +760,7 @@
   margin-top: 0;
   padding-left: 1rem;
   padding-top: 1rem;
-  width: 97.7%;
+  width: 97.6%;
 }
 
 .dropdown-icon~p {
@@ -698,19 +833,104 @@
 }
 
 
-ol {
-  background-color: white;
-  border: 1px solid black;
+
+
+
+
+
+
+
+
+/* <---------- Account Page (Restaurant) ----------> */
+.add-customer-review-modal-container {
+  background-color: rgba(0,0,0,0.4);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.review-modal-content {
+  background-color: #fefefe;
+  border: 1px solid #888;
   border-radius: 15px;
+  height: 20rem;
+  margin: 15% auto;
+  padding: 1rem;
+  width: 35%;
+}
+
+.close-review-modal {
+  color: #aaa;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.close-review-modal:hover,
+.close-review-modal:focus {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.review-modal-content textarea{
+  border-radius: 10px;
+  height: 62%;
   margin-left: 50%;
-  padding: 3rem;
-  text-align: center;
+  padding: 0.5rem;
   transform: translateX(-50%);
-  width: 60%;
+  width: 96.5%;
 }
 
-li {
-  margin-bottom: 3rem;
+.review-modal-content button{
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transition: all 300ms;
+}
+
+.review-modal-content button:hover{
+  background-color: rgb(222, 222, 222);
+  transform: scale(1.05);
+  transition: all 300ms;
+}
+
+.restaurant-account-img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin-left: -1rem;
+  width: 107.1%;
+}
+
+.account-review-modal-btn {
+  background-color: white;
+  border: 1px solid #686868;
+  border-radius: 15px;
+  cursor: pointer;
+  float: right;
+  font-size: 1rem;
+  margin-top: 1.1rem;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transform: translateX(-10%);
+  transition: all 300ms;
+}
+
+.account-review-modal-btn:hover {
+  background-color: rgb(177, 177, 177);
+  transform:translateX(-10%);
+  transition: all 300ms;
 }
 
 
@@ -722,7 +942,7 @@ li {
 
 
 
-/* <---------- Cart Page ----------> */
+/* <---------- Checkout Page ----------> */
 .cart-page-main-content {
   display: grid;
   grid-template-columns: 40% 60%;
@@ -742,13 +962,163 @@ li {
   width: 80%;
 }
 
+.cart-restaurant-details h1{
+  margin-left: 1rem;
+}
+
+.cart-restaurant-img {
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-left: 5%;
+  width: 90%;
+}
+
+.cart-restaurant-review-sec {
+  background-color: rgb(222, 222, 222);
+  border: 1px solid black;
+  border-radius: 15px;
+  max-height: 300px;
+  margin-bottom: 3rem;
+  margin-left: 6%;
+  margin-top: 3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  padding-bottom: 0;
+  width: 80%;
+}
+
+.cart-restaurant-review-sec::-webkit-scrollbar {
+  width: 0;
+}
+
+.cart-restaurant-review-sec h3{
+  margin-top: 0;
+}
+
+.cart-restaurant-review-sec h3+p{
+  float: right;
+  transform: translateY(-3.6rem);
+}
+
+.single-review-container {
+  border: 1px solid white;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.single-review-container h4{
+  background-color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.single-review-container p{
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.add-review-container {
+  border: 1px solid white;
+  border-radius: 15px;
+  height: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.review-dropdown-icon {
+  aspect-ratio: 1/1;
+  background-color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  float: right;
+  margin-right: 0.5rem;
+  margin-top: 1.1rem;
+  position: relative;
+  transform: translateY(-50%);
+  transition: all 300ms;
+  width: 20px;
+}
+
+.review-dropdown-icon:hover {
+  background-color: rgb(177, 177, 177);
+  transition: all 300ms;
+}
+
+.add-review-container h1{
+  background-color: white;
+  border-radius: 15px;
+  font-size: 1rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.review-drop-content {
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.review-drop-content.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.add-review-container.expanded {
+  height: 12rem;
+}
+
+.add-review-container.expanded h1{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.review-comment-textarea {
+  border-radius: 10px;
+  height: 5rem;
+  margin-bottom: 1rem;
+  margin-left: 5%;
+  margin-top: 0.5rem;
+  opacity: 1;
+  padding: 0.5rem;
+  transition: opacity 0.2s;
+  width: 85%;
+}
+
+.add-review-btn {
+  background-color: rgb(222, 222, 222);
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+  float: right;
+  margin-right: 2rem;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transform: translateY(-0.5rem);
+  transition: all 300ms;
+}
+
+.add-review-btn:hover {
+  background-color: white;
+  transform: scale(1.05) translateY(-0.5rem);
+  transition: all 300ms;
+}
+
 .cart-details {
   background-color: white;
   border: 1px solid black;
   border-radius: 15px;
-  min-height: 300px;
   max-height: 700px;
   margin-left: 5%;
+  margin-top: 4rem;
   overflow-y: auto;
   padding: 1rem;
   width: 85%;
@@ -757,6 +1127,7 @@ li {
 .cart-items {
   display: grid;
   grid-template-columns: 49.5% 49.5%;
+  margin-top: 1rem;
   row-gap: 2rem;
 }
 
@@ -801,14 +1172,15 @@ li {
 }
 
 .minus-quantity {
-  width: 1.5rem;
-  height: 1.5rem;
+  background-color: rgb(220, 220, 220);
   cursor: pointer;
+  height: 1.5rem;
   text-align: center;
+  width: 1.3rem;
 }
 
 .num-quantity {
-  width: 2rem;
+  width: 2.4rem;
   height: 1rem;
   display: flex;
   justify-content: center;
@@ -816,10 +1188,11 @@ li {
 }
 
 .plus-quantity {
-  width: 1.5rem;
-  height: 1.5rem;
+  background-color: rgb(220, 220, 220);
   cursor: pointer;
+  height: 1.5rem;
   text-align: center;
+  width: 1.3rem;
 }
 
 .total {
@@ -833,9 +1206,10 @@ li {
   border: 1px solid black;
   border-radius: 10px;
   cursor: pointer;
+  float: right;
   font-size: 0.85rem;
   height: 2.5rem;
-  margin-left: 50%;
+  margin-right: 2rem;
   margin-top: 1rem;
   transition: all 300ms;
   width: 20%;
@@ -846,3 +1220,4 @@ li {
   transform: scale(1.05);
   transition: all 300ms;
 }
+

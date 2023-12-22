@@ -11,8 +11,9 @@ function MenuUpdate(){
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState(blankItem);
     const [itemToUpdate, setItemToUpdate] = useState();
-    const [updatedItem, setUpdatedItem] = useState({'item': null, 'image': null, 'price': null, 'restaurant_id': null, food_type: null});
+    const [updatedItem, setUpdatedItem] = useState({});
     const [modal, setModal] = useState();
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         fetchItems();
@@ -20,6 +21,7 @@ function MenuUpdate(){
 
     return (
         <div>
+            {errorMsg && <div className='notification' >{errorMsg}</div>}
             <RestaurantNavbar user_login={user_login} />
             <h1 className='page-title' >Menu</h1>
 
@@ -28,55 +30,70 @@ function MenuUpdate(){
                     <div key={item.id} className='update-item-container' >
                         <img src={item.image} alt={`${item.item}`} className='update-menu-img' />
                         <h3>{item.item}</h3>
-                        <h4>Price: ${item.price}</h4>
-                        <button onClick={() => handleRemove(item)} className='remove-item-btn' >Remove Item</button>
-                        <br />
-                        <button onClick={() => handleUpdate(item)} className='update-item-btn' >Update Item</button>
+                        <p>Price: ${item.price}</p>
+                        <button onClick={() => handleRemove(item)} className='remove-item-btn' >Remove</button>
+                        <button onClick={() => handleUpdate(item)} className='update-item-btn' >Update</button>
                     </div>
                 ))}
 
-                <form className='add-menu-item-form' onSubmit={addItem} >
-                    <h3>Add Item</h3>
-                    <input onChange={handleAddChange} value={newItem.name} name='name' placeholder='Item Name' />
-                    <br />
-                    <input onChange={handleAddChange} value={newItem.image} name='image' placeholder='Image URL' />
-                    <br />
-                    <input onChange={handleAddChange} value={newItem.price} name='price' placeholder='Price' />
-                    <br />
-                    <select onChange={handleAddChange} value={newItem.food_type} name='food_type' placeholder='Food Type'>
+                <form className='update-item-container' onSubmit={addItem} >
+                    <h3 className='add-item-title'>Add Item</h3>
+
+                    <div className='add-item-input-group'>
+                        <input className='add-item-input' required type='text' id='item' name='item' onChange={handleAddChange} value={newItem.name}/>
+                        <label className='add-item-label' for='item'>Item Name</label>
+                    </div>
+
+                    <div className='add-item-input-group'>
+                        <input className='add-item-input' required type='text' id='image' name='image' onChange={handleAddChange} value={newItem.image}/>
+                        <label className='add-item-label' for='image'>Image URL</label>
+                    </div>
+
+                    <div className='add-item-input-group'>
+                        <input className='add-item-input' required type='text' id='price' name='price' onChange={handleAddChange} value={newItem.price}/>
+                        <label className='add-item-label' for='price'>Price</label>
+                    </div>
+
+                    <select className='select-input' onChange={handleAddChange} value={newItem.food_type} name='food_type' placeholder='Food Type'>
                         <option>--Select--</option>
                         <option value='entree'>Entree</option>
                         <option value='side'>Side</option>
                         <option value='beverage'>Beverage</option>
                         <option value='dessert'>Dessert</option>
                     </select>
-                    <br />
-                    <input type='submit' value='Submit' />
+                    <input className='add-item-btn' type='submit' value='Submit' />
                 </form>
 
                 {modal &&
                     <div className='modal-container' >
-                        <div className='modal-content' >
-                            <span onClick={() => setModal(null)} className='close-modal'>&times;</span>
-                            <h2>Update {itemToUpdate.item}</h2>
-                            <p>Fill Out Updated Information</p>
-                            <form onSubmit={updateItem} >
-                                <input onChange={handleUpdateChange} value={updatedItem.item} name='item' placeholder='Name' />
-                                <br />
-                                <input onChange={handleUpdateChange} value={updatedItem.image} name='image' placeholder='Image URL' />
-                                <br />
-                                <input onChange={handleUpdateChange} value={updatedItem.price} name='price' placeholder='Price' />
-                                <br />
-                                <select onChange={handleUpdateChange} value={updatedItem.food_type} name='food_type' >
+                        <div className='update-modal-content' >
+                            <span onClick={() => setModal(null)} className='close-review-modal'>&times;</span>
+                            <h2 className='update-modal-title'>Update {itemToUpdate.item}</h2>
+                            <div>
+                                <div className='add-item-input-group'>
+                                    <input className='add-item-input' required type='text' id='item' name='item' onChange={handleUpdateChange} value={updatedItem.item}/>
+                                    <label className='add-item-label' for='name'>Name</label>
+                                </div>
+
+                                <div className='add-item-input-group'>
+                                    <input className='add-item-input' required type='text' id='image' name='image' onChange={handleUpdateChange} value={updatedItem.image}/>
+                                    <label className='add-item-label' for='image'>Image URL</label>
+                                </div>
+
+                                <div className='add-item-input-group'>
+                                    <input className='add-item-input' required type='text' id='price' name='price' onChange={handleUpdateChange} value={updatedItem.price}/>
+                                    <label className='add-item-label' for='price'>Price</label>
+                                </div>
+
+                                <select className='select-input' onChange={handleUpdateChange} value={updatedItem.food_type} name='food_type' >
                                     <option>--Select--</option>
                                     <option value='entree' >Entree</option>
                                     <option value='side' >Side</option>
                                     <option value='beverage' >Beverage</option>
                                     <option value='dessert' >Dessert</option>
                                 </select>
-                                <bR />
-                                <input type='submit' value='Submit' />
-                            </form>
+                                <input className='add-item-btn' onClick={updateItem} type='submit' value='Submit' />
+                            </div>
                         </div>
                     </div>
                 }
@@ -92,18 +109,12 @@ function MenuUpdate(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                item: updatedItem.item,
-                image: updatedItem.image,
-                price: updatedItem.price,
-                restaurant_id: user_login.restaurant_id,
-                food_type: updatedItem.food_type
-            })
+            body: JSON.stringify(updatedItem)
         })
             .then(res => res.json())
             .then(patchedItem => {
                 setModal(null)
-                setUpdatedItem({'item': null, 'image': null, 'price': null, 'restaurant_id': null, food_type: null})
+                setUpdatedItem({})
                 fetchItems();
             })
     }
@@ -129,26 +140,60 @@ function MenuUpdate(){
         setUpdatedItem({...updatedItem, [e.target.name]: e.target.value})
     }
 
+    function isValidUrl(urlString) {
+        const urlPattern = new RegExp('^(https?:\\/\\/)?'+
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+
+        '(\\#[-a-z\\d_]*)?$','i');
+        return !!urlPattern.test(urlString);
+    }
+
     function addItem(e){
         e.preventDefault();
+        if (isValidUrl(newItem.image)){
+            if (!(isNaN(newItem.price))){
+                if (newItem.food_type !== '--Select--'){
+                    fetch('/menuItems', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            item: newItem.name,
+                            image: newItem.image,
+                            price: newItem.price,
+                            restaurant_id: user_login.restaurant_id,
+                            food_type: newItem.food_type,
+                            quantity: 1
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(newMenuItem => {
+                            fetchItems();
+                        })
+                } else {
+                    setErrorMsg('Choose a Food Type');
 
-        fetch('/menuItems', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                item: newItem.name,
-                image: newItem.image,
-                price: newItem.price,
-                restaurant_id: user_login.restaurant_id,
-                food_type: newItem.food_type
-            })
-        })
-            .then(res => res.json())
-            .then(newMenuItem => {
-                fetchItems();
-            })
+                    setTimeout(() => {
+                        setErrorMsg(null);
+                    }, 3000);
+                }
+            } else {
+                setErrorMsg('Make Sure the Price is a Valid Number');
+
+                setTimeout(() => {
+                    setErrorMsg(null);
+                }, 3000);
+            }
+        } else {
+            setErrorMsg('Use a Valid Image URL');
+
+            setTimeout(() => {
+                setErrorMsg(null);
+            }, 3000);
+        }
     }
 
     function fetchItems(){
