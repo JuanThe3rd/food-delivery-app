@@ -42,7 +42,7 @@ function Restaurant() {
                 {modal &&
                     <div className='modal-container' >
                         <div className='modal-content' >
-                            <span className='close-modal' onClick={() => setModal(null)} >&times;</span>
+                            <span className='close-review-modal' onClick={() => setModal(null)} >&times;</span>
                             <p className='notif-text' >
                                 It seems you are trying to order food from a different restaurant than what's in your cart. 
                                 Are you sure you want to empty your cart and start a new order?
