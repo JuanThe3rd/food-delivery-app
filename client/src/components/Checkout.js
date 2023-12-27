@@ -88,6 +88,7 @@ function Checkout() {
                     </div>
 
                     <h4 className='total' >Total: ${Math.round(total * 100) / 100}</h4>
+                    <button className='checkout-btn'>Add More Items</button>
                     <button className='checkout-btn' onClick={handleCheckout} >Checkout</button>
                 </div>
             </div>

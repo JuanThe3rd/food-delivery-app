@@ -30,7 +30,7 @@ function Restaurant() {
     }, [])
     
     return (
-        <div>
+        <div className='restaurant-page'>
             {msg &&
                 <div className='notification' >
                     {msg}
