@@ -165,40 +165,48 @@ function Register() {
                         }, 3000);
                     }
                 } else if (accountType ==='restaurant'){
-                    if (accountData.owner.length > 1){
+                    if (accountData.name.length > 1){
                         fetch(`${accountData.image}`)
                             .then(res => {
                                 if (res.status !== 404){
-                                    fetch('/restaurants', {
-                                        method: 'POST',
-                                        headers: {'Content-Type': 'application/json'},
-                                        body: JSON.stringify({
-                                            name: accountData.name,
-                                            image: accountData.image,
-                                            owner: accountData.owner
-                                        })
-                                    })
-                                        .then(res => res.json())
-                                        .then(new_account => {
-                                            fetch('/logins', {
-                                                method: 'POST',
-                                                headers: {'Content-Type': 'application/json'},
-                                                body: JSON.stringify({
-                                                    username: accountData.username,
-                                                    password: accountData.password,
-                                                    user_type: 'restaurant',
-                                                    restaurant_id: new_account.id,
-                                                    user_id: null
-                                                })
+                                    if (accountData.owner.length > 1){
+                                        fetch('/restaurants', {
+                                            method: 'POST',
+                                            headers: {'Content-Type': 'application/json'},
+                                            body: JSON.stringify({
+                                                name: accountData.name,
+                                                image: accountData.image,
+                                                owner: accountData.owner
                                             })
-                                                .then(res => res.json())
-                                                .then(newLogin => {
-                                                    setMsg('Account Successfully Created! Redirecting...');
-                                                    setTimeout(() => {
-                                                        history.push('/');
-                                                    }, 3000)
-                                                })
                                         })
+                                            .then(res => res.json())
+                                            .then(new_account => {
+                                                fetch('/logins', {
+                                                    method: 'POST',
+                                                    headers: {'Content-Type': 'application/json'},
+                                                    body: JSON.stringify({
+                                                        username: accountData.username,
+                                                        password: accountData.password,
+                                                        user_type: 'restaurant',
+                                                        restaurant_id: new_account.id,
+                                                        user_id: null
+                                                    })
+                                                })
+                                                    .then(res => res.json())
+                                                    .then(newLogin => {
+                                                        setMsg('Account Successfully Created! Redirecting...');
+                                                        setTimeout(() => {
+                                                            history.push('/');
+                                                        }, 3000)
+                                                    })
+                                            })
+                                    } else {
+                                        setMsg('Owner name must be at least 2 characters long');
+
+                                        setTimeout(() => {
+                                            setMsg(null);
+                                        }, 3000);
+                                    }
                                 } else {
                                     setMsg('Restaurant Image must be a valid URL');
 
@@ -208,7 +216,7 @@ function Register() {
                                 }
                             });
                     } else {
-                        setMsg('Firstname must be at least 2 characters long');
+                        setMsg('Restaurant name must be at least 2 characters long');
 
                         setTimeout(() => {
                             setMsg(null);
