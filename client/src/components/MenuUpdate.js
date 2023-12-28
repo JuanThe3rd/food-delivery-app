@@ -11,16 +11,16 @@ function MenuUpdate(){
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState(blankItem);
     const [itemToUpdate, setItemToUpdate] = useState();
-    const [updatedItem, setUpdatedItem] = useState({});
+    const [updatedItem, setUpdatedItem] = useState(blankItem);
     const [modal, setModal] = useState();
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         fetchItems();
-    }, [])
+    }, []);
 
     return (
-        <div>
+        <div className='home-page'>
             {errorMsg && <div className='notification' >{errorMsg}</div>}
             <RestaurantNavbar user_login={user_login} />
             <h1 className='page-title' >Menu</h1>
@@ -67,7 +67,7 @@ function MenuUpdate(){
                 {modal &&
                     <div className='modal-container' >
                         <div className='update-modal-content' >
-                            <span onClick={() => setModal(null)} className='close-review-modal'>&times;</span>
+                            <span onClick={closeModal} className='close-review-modal'>&times;</span>
                             <h2 className='update-modal-title'>Update {itemToUpdate.item}</h2>
                             <div>
                                 <div className='add-item-input-group'>
@@ -101,22 +101,70 @@ function MenuUpdate(){
         </div>
     )
 
+    function closeModal(){
+        setModal(null);
+        setUpdatedItem(blankItem);
+    }
+
     function updateItem(e){
         e.preventDefault();
 
-        fetch(`/menuItems/${itemToUpdate.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedItem)
-        })
-            .then(res => res.json())
-            .then(patchedItem => {
-                setModal(null)
-                setUpdatedItem({})
-                fetchItems();
-            })
+        console.log(updatedItem);
+
+        if (updatedItem.image === null || isValidUrl(updatedItem.image)){
+            if (updatedItem.price === null || !(isNaN(updatedItem.price))){
+                if (updatedItem.food_type === null || updatedItem.food_type !== '--Select--'){
+                    const temp_updated_item = {};
+
+                    if (updatedItem.item !== null){
+                        temp_updated_item.item = updatedItem.item;
+                    }
+
+                    if (updatedItem.image !== null){
+                        temp_updated_item.image = updatedItem.image;
+                    }
+
+                    if (updatedItem.price !== null){
+                        temp_updated_item.price = updatedItem.price;
+                    }
+
+                    if (updatedItem.food_type !== null){
+                        temp_updated_item.food_type = updatedItem.food_type;
+                    }
+                    fetch(`/menuItems/${itemToUpdate.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(temp_updated_item)
+                    })
+                        .then(res => res.json())
+                        .then(patchedItem => {
+                            setModal(null);
+                            fetchItems();
+                            setUpdatedItem(blankItem);
+                        })
+                } else {
+                    setErrorMsg('Choose a Food Type');
+
+                    setTimeout(() => {
+                        setErrorMsg(null);
+                    }, 3000);
+                }
+            } else {
+                setErrorMsg('Make Sure the Price is a Valid Number');
+
+                setTimeout(() => {
+                    setErrorMsg(null);
+                }, 3000);
+            }
+        } else {
+            setErrorMsg('Use a Valid Image URL');
+
+            setTimeout(() => {
+                setErrorMsg(null);
+            }, 3000);
+        }
     }
 
     function handleRemove(item){
@@ -161,7 +209,7 @@ function MenuUpdate(){
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            item: newItem.name,
+                            item: newItem.item,
                             image: newItem.image,
                             price: newItem.price,
                             restaurant_id: user_login.restaurant_id,
@@ -171,7 +219,8 @@ function MenuUpdate(){
                     })
                         .then(res => res.json())
                         .then(newMenuItem => {
-                            fetchItems();
+                            setItems([...items, newMenuItem]);
+                            setNewItem(blankItem);
                         })
                 } else {
                     setErrorMsg('Choose a Food Type');

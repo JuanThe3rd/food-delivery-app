@@ -3,7 +3,6 @@
   --header: #fff;
   --link: #61dafb;
   --text: hsla(0, 0%, 100%, 0.88);
-  background: linear-gradient(#5bfcf3, #1f79f4);
   font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -37,7 +36,7 @@
   margin-left: 75%;
   margin-top: 5rem;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   color: red;
 }
@@ -263,6 +262,7 @@
   background: linear-gradient(#5bfcf3, #1f79f4);
   background-position: 50% 50%;
   background-size: cover;
+  height: 100vh;
   overflow-x: hidden;
   position: fixed;
   top: 0%;
@@ -344,7 +344,21 @@
 
 /* <---------- Restaurant Page (User) ----------> */
 .restaurant-page {
-  min-height: 43rem;
+  background-attachment: fixed;
+  background: linear-gradient(#5bfcf3, #1f79f4);
+  background-position: 50% 50%;
+  background-size: cover;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  left: 0%;
+  scroll-behavior: smooth;
+  width: 100vw;
+  z-index: 0;
 }
 
 .modal-container {
@@ -518,6 +532,7 @@
   column-gap: 1%;
   display: grid;
   grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+  margin-bottom: 6rem;
   margin-top: 5rem;
   padding: 1%;
   row-gap: 1rem;
@@ -686,11 +701,30 @@
 
 
 /* <---------- Account Page (User) ----------> */
+.account-page {
+  background-attachment: fixed;
+  background: linear-gradient(#5bfcf3, #1f79f4);
+  background-position: 50% 50%;
+  background-size: cover;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  left: 0%;
+  scroll-behavior: smooth;
+  width: 100vw;
+  z-index: 0;
+}
+
 .account-page-main-content {
   display: grid;
   grid-template-columns: 40% 60%;
   margin-bottom: 5rem;
   margin-top: 5rem;
+  overflow-y: auto;
 }
 
 .account-details-container {
@@ -980,6 +1014,24 @@
 
 
 /* <---------- Checkout Page ----------> */
+.checkout-page {
+  background-attachment: fixed;
+  background: linear-gradient(#5bfcf3, #1f79f4);
+  background-position: 50% 50%;
+  background-size: cover;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  left: 0%;
+  scroll-behavior: smooth;
+  width: 100vw;
+  z-index: 0;
+}
+
 .cart-page-main-content {
   display: grid;
   grid-template-columns: 40% 60%;

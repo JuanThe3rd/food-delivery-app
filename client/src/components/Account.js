@@ -173,7 +173,7 @@ function Account() {
     }, []);
 
     return (
-        <div>
+        <div className='account-page'>
             {errorMsg && <div className='notification'>{errorMsg}</div>}
 
             { user_login.user_type === 'user' &&

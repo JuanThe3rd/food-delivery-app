@@ -22,23 +22,25 @@ function Checkout() {
     }
 
     useEffect(() => {
-        fetch('/reviews')
-            .then(res => res.json())
-            .then(reviews => {
-                const temp_reviews = [];
+        if (restaurant !== undefined){
+            fetch('/reviews')
+                .then(res => res.json())
+                .then(reviews => {
+                    const temp_reviews = [];
 
-                for(let i = 0; i < reviews.length; i++){
-                    if (reviews[i].restaurant_id === restaurant.id && reviews[i].review_type === 'restaurant'){
-                        temp_reviews.push(reviews[i]);
+                    for(let i = 0; i < reviews.length; i++){
+                        if (reviews[i].restaurant_id === restaurant.id && reviews[i].review_type === 'restaurant'){
+                            temp_reviews.push(reviews[i]);
+                        }
                     }
-                }
 
-                setReviews(temp_reviews);
-            })
+                    setReviews(temp_reviews);
+                })
+        }
     }, []);
 
     return (
-        <div>
+        <div className='checkout-page'>
             {msg && 
                 <div className='notification' >
                     Cart is empty, add some things before checking out
@@ -48,28 +50,30 @@ function Checkout() {
             <h1 className='page-title' >Cart</h1>
 
             <div className='cart-page-main-content'>
-                <div className='cart-restaurant-details'>
-                    <h1>{restaurant.name}</h1>
-                    <img className='cart-restaurant-img' src={restaurant.image} alt={`${restaurant.name}_img`} />
-                    <div className='cart-restaurant-review-sec'>
-                        <h3>Reviews</h3>
-                        <p>({reviews.length})</p>
-                        {reviews.map(review => (
-                            <div className='single-review-container'>
-                                <h4>{review.user.name}</h4>
-                                <p>{review.content}</p>
-                            </div>
-                        ))}
-                        <div className={reviewClasses[0]}>
-                            <img className='review-dropdown-icon' src={reviewClasses[1]} onClick={handleDropClick} alt='dropdown-icon'/>
-                            <h1>Add a Review</h1>
-                            <div className={reviewClasses[2]}>
-                                <textarea className='review-comment-textarea' placeholder='Review' onChange={handleChange} value={reviewContent}></textarea>
-                                <button className='add-review-btn' onClick={addReview}>Add Review</button>
+                {restaurant !== undefined &&
+                    <div className='cart-restaurant-details'>
+                        <h1>{restaurant.name}</h1>
+                        <img className='cart-restaurant-img' src={restaurant.image} alt={`${restaurant.name}_img`} />
+                        <div className='cart-restaurant-review-sec'>
+                            <h3>Reviews</h3>
+                            <p>({reviews.length})</p>
+                            {reviews.map(review => (
+                                <div className='single-review-container'>
+                                    <h4>{review.user.name}</h4>
+                                    <p>{review.content}</p>
+                                </div>
+                            ))}
+                            <div className={reviewClasses[0]}>
+                                <img className='review-dropdown-icon' src={reviewClasses[1]} onClick={handleDropClick} alt='dropdown-icon'/>
+                                <h1>Add a Review</h1>
+                                <div className={reviewClasses[2]}>
+                                    <textarea className='review-comment-textarea' placeholder='Review' onChange={handleChange} value={reviewContent}></textarea>
+                                    <button className='add-review-btn' onClick={addReview}>Add Review</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
 
                 <div className='cart-details'>
                     <div className='cart-items'>
